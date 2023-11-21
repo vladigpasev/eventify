@@ -1,6 +1,6 @@
-## Wellcome to Eventify
+# Wellcome to Eventify
 
-# This is a NOIT project 2023/2024
+## This is a NOIT project 2023/2024
 
 How to run the development server:
 
