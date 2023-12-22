@@ -1,0 +1,12 @@
+{
+    "navbar": {
+        "home": "Начало",
+        "about": "За нас",
+        "services": "Услуги",
+        "portfolio": "Портфолио",
+        "review": "Отзиви",
+        "pricing": "Цени",
+        "blog": "Блог",
+        "contact": "Контакти"
+    }
+}
