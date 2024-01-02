@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.navbar-transition {
+  transition: background-color 0.3s ease, top 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for background, position, and shadow */
+}

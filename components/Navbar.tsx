@@ -1,38 +1,65 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+"use client"
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+
 //@ts-ignore
-function Navbar({locale, home, about, services, portfolio, review, pricing, blog, contact}) {
+const Navbar = ({ locale, home, about, services, portfolio, review, pricing, blog, contact }) => {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        if (position > 20) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const toggleMenu = () => setIsOpen(!isOpen);
+
     return (
-        <nav className='w-full flex justify-center mt-5'>
-            <div className='flex gap-28 items-center'>
-                <div className='flex gap-20 items-center'>
-                    <div>
-                        <img src="/logo.png" alt='Logo' width={100}/>
-                    </div>
-                    <div>
-                        <ul className='flex gap-5 text-gray-700'>
-                            <Link href={`/${locale}`}><li>{home}</li></Link>
-                            <Link href={`/${locale}`}><li>{about}</li></Link>
-                            <Link href={`/${locale}`}><li>{services}</li></Link>
-                            <Link href={`/${locale}`}><li>{portfolio}</li></Link>
-                            <Link href={`/${locale}`}><li>{review}</li></Link>
-                            <Link href={`/${locale}`}><li>{pricing}</li></Link>
-                            <Link href={`/${locale}`}><li>{blog}</li></Link>
-                            <Link href={`/${locale}`}><li>{contact}</li></Link>
-                        </ul>
-                    </div>
+        <nav className={`w-full py-5 navbar-transition z-50 fixed ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} transition-all duration-300 ease-in-out`}>
+            <div className='container mx-auto px-4 flex justify-between items-center'>
+                <Link href="/"><img src="/logo.png" alt='Logo' className="w-24" /></Link>
+                <div className="lg:hidden">
+                    <button onClick={toggleMenu} className={`${isScrolled ? 'text-black hover:text-gray-500' : 'text-gray-300 hover:text-gray-100'} focus:outline-none`}>
+                        {/* Icons */}
+                        {isOpen ? (
+                            // Close icon (X)
+                            <svg className="h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        ) : (
+                            // Hamburger icon (Menu)
+                            <svg className="h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                            </svg>
+                        )}
+                    </button>
                 </div>
-                <div>
-                    <ul className='flex gap-3'>
-                        <div className='bg-white p-2 rounded-full'><a href='https://www.instagram.com/eventify/'><svg width="18px" height="18px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></g></svg></a></div>
-                        <div className='bg-white p-2 rounded-full'><a href='https://www.facebook.com/eventify'><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24" className="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a></div>
-                        <div className='bg-white p-2 rounded-full'><a href='https://twitter.com/eventify'><svg fill="#000000" width="18px" height="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 310"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_826_"> <path id="XMLID_827_" d="M302.973,57.388c-4.87,2.16-9.877,3.983-14.993,5.463c6.057-6.85,10.675-14.91,13.494-23.73 c0.632-1.977-0.023-4.141-1.648-5.434c-1.623-1.294-3.878-1.449-5.665-0.39c-10.865,6.444-22.587,11.075-34.878,13.783 c-12.381-12.098-29.197-18.983-46.581-18.983c-36.695,0-66.549,29.853-66.549,66.547c0,2.89,0.183,5.764,0.545,8.598 C101.163,99.244,58.83,76.863,29.76,41.204c-1.036-1.271-2.632-1.956-4.266-1.825c-1.635,0.128-3.104,1.05-3.93,2.467 c-5.896,10.117-9.013,21.688-9.013,33.461c0,16.035,5.725,31.249,15.838,43.137c-3.075-1.065-6.059-2.396-8.907-3.977 c-1.529-0.851-3.395-0.838-4.914,0.033c-1.52,0.871-2.473,2.473-2.513,4.224c-0.007,0.295-0.007,0.59-0.007,0.889 c0,23.935,12.882,45.484,32.577,57.229c-1.692-0.169-3.383-0.414-5.063-0.735c-1.732-0.331-3.513,0.276-4.681,1.597 c-1.17,1.32-1.557,3.16-1.018,4.84c7.29,22.76,26.059,39.501,48.749,44.605c-18.819,11.787-40.34,17.961-62.932,17.961 c-4.714,0-9.455-0.277-14.095-0.826c-2.305-0.274-4.509,1.087-5.294,3.279c-0.785,2.193,0.047,4.638,2.008,5.895 c29.023,18.609,62.582,28.445,97.047,28.445c67.754,0,110.139-31.95,133.764-58.753c29.46-33.421,46.356-77.658,46.356-121.367 c0-1.826-0.028-3.67-0.084-5.508c11.623-8.757,21.63-19.355,29.773-31.536c1.237-1.85,1.103-4.295-0.33-5.998 C307.394,57.037,305.009,56.486,302.973,57.388z"></path> </g> </g></svg></a></div>
+                <div className={`lg:flex lg:items-center ${isOpen ? 'block' : 'hidden'} absolute lg:static top-full left-0 right-0 bg-white lg:bg-transparent shadow-md lg:shadow-none py-4 lg:p-0`}>
+                    <ul className={`flex flex-col lg:flex-row gap-6 ${isScrolled ? 'text-black' : 'text-black lg:text-gray-300'} items-center whitespace-nowrap`}>
+                        <li><Link href={`/${locale}/#`}>{home}</Link></li>
+                        <li><Link href={`/${locale}/#about`} className="min-w-max">{about}</Link></li>
+                        <li><Link href={`/${locale}/#services`}>{services}</Link></li>
+                        <li><Link href={`/${locale}/#review`}>{review}</Link></li>
+                        <li><Link href={`/${locale}/#pricing`}>{pricing}</Link></li>
+                        <li><Link href={`/${locale}/#blog`}>{blog}</Link></li>
+                        <li><Link href={`/${locale}/#contact`}>{contact}</Link></li>
                     </ul>
+                    <div className='w-full flex justify-center lg:justify-start'>
+                        <Link href="/dashboard" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Sign Up</Link>
+                    </div>
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

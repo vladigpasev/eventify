@@ -13,7 +13,8 @@
     "negotiator": "^0.6.3",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tiny-slider-react": "^0.5.7"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
@@ -22,6 +23,7 @@
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.0.1",
+    "daisyui": "^4.4.23",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "postcss": "^8",

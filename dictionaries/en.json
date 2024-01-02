@@ -1,12 +1,16 @@
 {
   "navbar": {
-      "home": "Home",
-      "about": "About Us",
-      "services": "Services",
-      "portfolio": "Portfolio",
-      "review": "Reviews",
-      "pricing": "Pricing",
-      "blog": "Blog",
-      "contact": "Contacts"
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "review": "Reviews",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "contact": "Contacts"
+  },
+  "home": {
+    "title": "What would you like to do today?",
+    "description": "Embark on a journey of discovery and connect with a world of exciting events. With Eventify, you're not just attending events; you're experiencing life to its fullest.",
+    "ai_search_placeholder": "AI search: What would you like to do?"
   }
 }
