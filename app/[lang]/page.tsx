@@ -174,7 +174,7 @@ export default async function Home({ params: { lang } }: any) {
             <div className='flex flex-col md:grid md:grid-cols-12 gap-6 items-center'>
               <div className='md:col-span-7 md:order-1 order-2'>
                 <h3 className='text-lg font-semibold mb-3'>The User Finds the Event and Pays for It</h3>
-                <p className='text-gray-600'>Users browse through a variety of events, select the ones they're interested in, and make secure payments to confirm their participation.</p>
+                <p className='text-gray-600'>Users browse through a variety of events, select the ones they are interested in, and make secure payments to confirm their participation.</p>
               </div>
               <div className='md:col-span-5 md:order-2 order-1'>
                 <img src="/images/svg/undraw_searching_re_3ra9.svg" alt="Search Event Illustration" className='w-full max-w-md mx-auto' />
