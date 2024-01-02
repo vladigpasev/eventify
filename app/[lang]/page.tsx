@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { getDictionary } from './dictionaries'
 import Link from 'next/link';
+import Pricing from '@/components/Pricing';
 
 export default async function Home({ params: { lang } }: any) {
   const dict = await getDictionary(lang);
@@ -41,9 +42,9 @@ export default async function Home({ params: { lang } }: any) {
         <div className='flex lg:flex-row flex-col gap-6 p-5 items-center sm:px-6 lg:px-52 lg:gap-20'>
           <img src="/images/about.jpg" alt="About Image" className='rounded-lg shadow-2xl max-w-sm w-[90%]' />
           <div>
-            <p className='text-lg font-semibold text-blue-700 mb-3'>WHO WE ARE ?</p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">About Us</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+            <p className='text-lg font-semibold text-blue-700 mb-3'>{dict.home.who_we_are} ?</p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">{dict.home.about_us}</h1>
+            <p className="py-6">{dict.home.about_us_text}</p>
             <button className="btn btn-primary">Sign Up</button>
           </div>
         </div>
@@ -140,7 +141,7 @@ export default async function Home({ params: { lang } }: any) {
                   </a>
                   <p className="text-slate-400 mt-3">{item.subtext}</p>
 
-                  <a href="#" className="mt-5 flex flex-row font-semibold items-center gap-3 hover:text-accent after:bg-accent transition duration-500">
+                  <a href="#services" className="mt-5 flex flex-row font-semibold items-center gap-3 hover:text-accent after:bg-accent transition duration-500">
                     <span>
                       Read More
                     </span>
@@ -241,7 +242,82 @@ export default async function Home({ params: { lang } }: any) {
           ))}
         </div>
       </section>
+      <Pricing />
+      <section id="contacts" className='bg-white py-10 px-6 lg:px-52 lg:gap-20'>
+        <div>
+          <div className="pb-8 text-center">
+            <h6 className="text-primary text-base font-medium uppercase mb-2">Contact us</h6>
+            <h3 className="mb-4 md:text-2xl text-xl font-medium dark:text-white">Get In Touch !</h3>
 
+            <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">Launch your campaign and benefit from our expertise on designing and managing conversion centered Tailwind CSS html page.</p>
+          </div>
+          <div className='flex w-full justify-center '>
+            <div className="mt-8 items-center gap-6 justify-center">
+              <div>
+                <div className="lg:ms-8">
+                  <div className="flex">
+                    <div className="icons text-center mx-auto">
+                      <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" className="rounded text-2xl dark:text-white mb-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.128.94.361 1.87.7 2.78a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.31-1.31a2 2 0 0 1 2.11-.45c.91.339 1.84.572 2.78.7A2 2 0 0 1 22 16.92z"></path>
+                      </svg>
+                    </div>
+
+                    <div className="flex-1 ms-6">
+                      <h5 className="text-lg dark:text-white mb-2 font-medium">Phone</h5>
+                      <Link href="tel:+152534-468-854" className="text-slate-400">+359 2 490 1990</Link>
+                    </div>
+                  </div>
+
+                  <div className="flex mt-4">
+                    <div className="icons text-center mx-auto">
+                      <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" className="rounded text-2xl dark:text-white mb-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 4H2v16h20V4z"></path>
+                        <path d="M22 4l-10 7L2 4"></path>
+                      </svg>
+
+                    </div>
+
+                    <div className="flex-1 ms-6">
+                      <h5 className="text-lg dark:text-white mb-2 font-medium">Email</h5>
+                      <Link href="mailto:support@eventify.bg" className="text-slate-400">support@eventify.bg</Link>
+                    </div>
+                  </div>
+
+                  <div className="flex mt-4">
+                    <div className="icons text-center mx-auto">
+                      <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" className="rounded text-2xl dark:text-white mb-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 10c0 7.18-9 13-9 13s-9-5.82-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+
+                    </div>
+
+                    <div className="flex-1 ms-6">
+                      <h5 className="text-lg dark:text-white mb-2 font-medium">Location</h5>
+                      <p className="text-slate-400 mb-2">26 Pozitano str., Sofia, Bulgaria</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer p-10 bg-neutral text-neutral-content">
+        <aside>
+          <img src="/logo.png" alt="Eventiy Logo" width={50} height={50} className='w-40'/>
+          <p>Eventify Ltd.</p>
+        </aside>
+        <nav>
+          <header className="footer-title">Social</header>
+          <div className="grid grid-flow-col gap-4">
+            <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+            <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path></svg></a>
+            <a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="fill-current"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
+          </div>
+        </nav>
+      </footer>
     </main>
   )
 }

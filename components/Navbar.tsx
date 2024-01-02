@@ -50,8 +50,7 @@ const Navbar = ({ locale, home, about, services, portfolio, review, pricing, blo
                         <li><Link href={`/${locale}/#services`}>{services}</Link></li>
                         <li><Link href={`/${locale}/#reviews`}>{review}</Link></li>
                         <li><Link href={`/${locale}/#pricing`}>{pricing}</Link></li>
-                        <li><Link href={`/${locale}/#blog`}>{blog}</Link></li>
-                        <li><Link href={`/${locale}/#contact`}>{contact}</Link></li>
+                        <li><Link href={`/${locale}/#contacts`}>{contact}</Link></li>
                     </ul>
                     <div className='w-full flex justify-center lg:justify-start'>
                         <Link href="/dashboard" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Sign Up</Link>
