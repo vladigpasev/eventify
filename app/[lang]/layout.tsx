@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang={params.lang}>
       <body className={inter.className}>
-        <Navbar locale={params.lang} home={dict.navbar.home} about={dict.navbar.about} services={dict.navbar.services} portfolio={dict.navbar.portfolio} review={dict.navbar.review} pricing={dict.navbar.pricing} blog={dict.navbar.blog} contact={dict.navbar.contact}/>
+        <Navbar locale={params.lang} home={dict.navbar.home} about={dict.navbar.about} services={dict.navbar.services} review={dict.navbar.review} pricing={dict.navbar.pricing} blog={dict.navbar.blog} contact={dict.navbar.contact} sign_up={dict.home.sign_up}/>
         {children}
       </body>
     </html>

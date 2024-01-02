@@ -1,45 +1,45 @@
 import React from "react";
 import Link from "next/link";
-
-export default function Pricing() {
+//@ts-ignore
+export default function Pricing({hobby_description, hobby_feature1, hobby_feature2, hobby_feature3, hobby_feature4, hobby_feature5, basic_description, basic_feature1, basic_feature2, basic_feature3, basic_feature4, basic_feature5, premium_description, premium_feature1, premium_feature2, premium_feature3, premium_feature4, premium_feature5, month, sign_up, note, pricing_titl, rates_title, rates_description, lang}) {
     const pricing = [
         {
             id: 1,
             title: "Hobby",
             price: 0,
-            description: 'Perfect for event participators and hobby event creators.',
+            description: hobby_description,
             features: [
-                { text: "Participate in all events", type: "included" },
-                { text: "Create up to 5 events per month", type: "included" },
-                { text: "Event adversiting as add-on", type: "partially-included" },
-                { text: "30% comission per event", type: "partially-included" },
-                { text: "Basic and Premium event features disabled", type: "not-included" }
+                { text: hobby_feature1, type: "included" },
+                { text: hobby_feature2, type: "included" },
+                { text: hobby_feature3, type: "partially-included" },
+                { text: hobby_feature4, type: "partially-included" },
+                { text: hobby_feature5, type: "not-included" }
             ],
         },
         {
             id: 2,
             title: "Basic",
             price: 12,
-            description: 'Perfect for event organizers with up to 20 events/month.',
+            description: basic_description,
             features: [
-                { text: "Everything included in Hobby", type: "included" },
-                { text: "Create up to 20 events per month", type: "included" },
-                { text: "Basic event features enabled", type: "included" },
-                { text: "Event adversiting as add-on with 20% discount", type: "partially-included" },
-                { text: "10% comission per event", type: "partially-included" },
+                { text: basic_feature1, type: "included" },
+                { text: basic_feature2, type: "included" },
+                { text: basic_feature3, type: "included" },
+                { text: basic_feature4, type: "partially-included" },
+                { text: basic_feature5, type: "partially-included" },
             ],
         },
         {
             id: 3,
             title: "Premium",
             price: 28,
-            description: 'Perfect for event organizers with lots of events.',
+            description: premium_description,
             features: [
-                { text: "Everything included in Basic", type: "included" },
-                { text: "Create unlimited events per month", type: "included" },
-                { text: "Premium event features enabled", type: "included" },
-                { text: "All event adversiting features are enabled", type: "included" },
-                { text: "3% comission per event", type: "partially-included" }
+                { text: premium_feature1, type: "included" },
+                { text: premium_feature2, type: "included" },
+                { text: premium_feature3, type: "included" },
+                { text: premium_feature4, type: "included" },
+                { text: premium_feature5, type: "partially-included" }
             ],
         },
     ];
@@ -74,16 +74,15 @@ export default function Pricing() {
             <section className="py-10 px-6 lg:px-52" id="pricing">
                 <div >
                     <div className="grid grid-cols-1 pb-8 text-center">
-                        <h6 className="text-primary text-base font-medium uppercase mb-2">
-                            Pricing
+                        <h6 className="text-lg font-semibold text-blue-700 mb-3">
+                            {pricing_titl}
                         </h6>
-                        <h3 className="mb-4 md:text-2xl text-xl font-medium dark:text-white">
-                            Comfortable Rates
+                        <h3 className="mb-4 text-3xl lg:text-4xl font-bold">
+                            {rates_title}
                         </h3>
 
                         <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">
-                            Launch your campaign and benefit from our expertise on designing
-                            and managing conversion centered Tailwind CSS html page.
+                            {rates_description}
                         </p>
                     </div>
 
@@ -103,16 +102,16 @@ export default function Pricing() {
                                             <span className="text-5xl font-semibold dark:text-white">
                                                 {item.price}
                                             </span>
-                                            <span className="inline-block ms-1">/ month</span>
+                                            <span className="inline-block ms-1">/ {month}</span>
                                         </div>
                                         <p className="mb-6 text-slate-430 dark:text-slate-300">
                                             {item.description}
                                         </p>
                                         <Link
-                                            href="#"
+                                            href={`/${lang}/dashboard/register`}
                                             className="btn bg-primary border-primary text-white rounded-md w-full"
                                         >
-                                            Started Now
+                                            {sign_up}
                                         </Link>
                                     </div>
                                     <div className="border-b border-slate-200 dark:border-slate-700"></div>
@@ -144,7 +143,7 @@ export default function Pricing() {
                         ))}
                     </div>
                     <div className="flex justify-center text-slate-400 dark:text-slate-300 mt-2">
-                        <span className="text-primary">*</span>No credit card required
+                        <span className="text-primary">*</span>{note}
                     </div>
                 </div>
             </section>

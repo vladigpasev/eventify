@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 //@ts-ignore
-const Navbar = ({ locale, home, about, services, portfolio, review, pricing, blog, contact }) => {
+const Navbar = ({ locale, home, about, services, review, pricing, sign_up, contact }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -53,7 +53,7 @@ const Navbar = ({ locale, home, about, services, portfolio, review, pricing, blo
                         <li><Link href={`/${locale}/#contacts`}>{contact}</Link></li>
                     </ul>
                     <div className='w-full flex justify-center lg:justify-start'>
-                        <Link href="/dashboard" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Sign Up</Link>
+                        <Link href={`/${locale}/dashboard/register`} className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>{sign_up}</Link>
                     </div>
                 </div>
             </div>
