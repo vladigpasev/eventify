@@ -203,7 +203,7 @@ export default async function Home({ params: { lang } }: any) {
           {[
             {
               name: "Jane Doe",
-              review: "The events are always top-notch and the community is fantastic. I've never been disappointed!",
+              review: "The events are always top-notch and the community is fantastic. I have never been disappointed!",
               stars: 5,
               img: "/images/person1.jpg",
             },
