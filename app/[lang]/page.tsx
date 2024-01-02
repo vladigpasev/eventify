@@ -194,6 +194,54 @@ export default async function Home({ params: { lang } }: any) {
         </div>
       </section>
 
+      <section id='reviews' className="bg-gray-100 py-10">
+        <div className='text-center mb-12'>
+          <p className='text-lg font-semibold text-blue-700 mb-3'>CLIENT REVIEWS</p>
+          <h2 className='text-3xl lg:text-4xl font-bold'>What People Say About Us</h2>
+        </div>
+        <div className='flex flex-wrap justify-center gap-10 px-5 lg:px-52'>
+          {[
+            {
+              name: "Jane Doe",
+              review: "The events are always top-notch and the community is fantastic. I've never been disappointed!",
+              stars: 5,
+              img: "/images/person1.jpg",
+            },
+            {
+              name: "John Smith",
+              review: "A great way to discover and connect with new people. The variety of events is amazing!",
+              stars: 5,
+              img: "/images/person2.jpg",
+            },
+            {
+              name: "Emma Wilson",
+              review: "Absolutely love the user-friendly interface and the event variety. Highly recommended!",
+              stars: 5,
+              img: "/images/person3.jpg",
+            },
+          ].map((item, key) => (
+            <div
+              key={key}
+              className="max-w-sm bg-white rounded-lg shadow-md overflow-hidden"
+            >
+              <div className="p-5">
+                <div className="flex items-center">
+                  {[...Array(item.stars)].map((star, index) => (
+                    <svg key={index} xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-5 h-5 text-yellow-500" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.396-.956 1.555-.956 1.951 0l1.562 3.77 4.16.606c.68.1 1.007 1.028.487 1.542l-3.008 2.93.709 4.125c.115.668-.585 1.176-1.175.859l-3.707-1.948-3.707 1.948c-.59.317-1.29-.191-1.175-.859l.709-4.125-3.008-2.93c-.52-.514-.193-1.442.487-1.542l4.16-.606 1.562-3.77z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-gray-600 mt-2">{item.review}</p>
+                <div className="mt-4">
+                  <span className="text-blue-700 font-semibold">{item.name}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
     </main>
   )
 }

@@ -48,7 +48,7 @@ const Navbar = ({ locale, home, about, services, portfolio, review, pricing, blo
                         <li><Link href={`/${locale}/#`}>{home}</Link></li>
                         <li><Link href={`/${locale}/#about`} className="min-w-max">{about}</Link></li>
                         <li><Link href={`/${locale}/#services`}>{services}</Link></li>
-                        <li><Link href={`/${locale}/#review`}>{review}</Link></li>
+                        <li><Link href={`/${locale}/#reviews`}>{review}</Link></li>
                         <li><Link href={`/${locale}/#pricing`}>{pricing}</Link></li>
                         <li><Link href={`/${locale}/#blog`}>{blog}</Link></li>
                         <li><Link href={`/${locale}/#contact`}>{contact}</Link></li>
