@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import '../globals.css'
-import Navbar from '@/components/Navbar'
-import { getDictionary } from './dictionaries'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +18,9 @@ export default async function RootLayout({
     lang: string
   }
 }) {
-  const dict = await getDictionary(params.lang)
   return (
     <html lang={params.lang}>
       <body className={inter.className}>
-        <Navbar locale={params.lang} home={dict.navbar.home} about={dict.navbar.about} services={dict.navbar.services} review={dict.navbar.review} pricing={dict.navbar.pricing} contact={dict.navbar.contact} sign_up={dict.home.sign_up}/>
         {children}
       </body>
     </html>
