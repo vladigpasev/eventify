@@ -6,7 +6,7 @@ import { getLocationFromIP } from '@/server/fetchEvents';
 function Location({ onLocationUpdate }) {
     const [location, setLocation] = useState('');
     const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-//@ts-ignore
+    //@ts-ignore
     const fetchAddress = async (latitude, longitude) => {
         const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleMapsApiKey}`;
         try {
@@ -60,10 +60,6 @@ function Location({ onLocationUpdate }) {
     useEffect(() => {
         getLocation();
     }, []);
-
-
-
-
 
     return (
         <div className='flex flex-row items-center gap-2'>
