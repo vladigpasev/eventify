@@ -6,13 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migration": "drizzle-kit generate:pg"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.7",
+    "@vercel/postgres": "^0.7.2",
+    "drizzle-orm": "^0.29.3",
+    "jsonwebtoken": "^9.0.2",
     "negotiator": "^0.6.3",
     "next": "14.0.3",
+    "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
+    "stripe": "^14.17.0",
     "tiny-slider-react": "^0.5.7"
   },
   "devDependencies": {
@@ -23,6 +30,7 @@
     "@types/react-dom": "^18.2.18",
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.4.23",
+    "drizzle-kit": "^0.20.14",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "postcss": "^8",
