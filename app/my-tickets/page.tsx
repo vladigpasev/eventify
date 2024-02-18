@@ -7,6 +7,18 @@ import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { sql } from '@vercel/postgres';
 import { eq } from 'drizzle-orm';
 import { currentUser } from '@clerk/nextjs';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'My Tickets | Eventify',
+    description: 'In this page you can see and access all your purchased tickets.',
+    alternates: {
+        canonical: `https://www.eventify.bg/my-tickets`,
+    },
+    openGraph: {
+      images: `https://www.eventify.bg/images/opengraph.png`,
+  }
+}
 
 export default async function MyEvents() {
     const db = drizzle(sql);

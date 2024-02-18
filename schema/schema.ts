@@ -33,6 +33,8 @@ export const events = pgTable('events', {
   userUuid: varchar('userUuid', {length: 100}).notNull(),
   dateTime: varchar('dateTime', {length: 100}).notNull(),
   visibility: varchar('visibility', {length: 100}).notNull().default("public"),
+  //@ts-ignore
+  updatedAt: timestamp('updated_at').default(`now()`),
 });
 
 export const eventCustomers = pgTable('eventCustomers', {
@@ -52,12 +54,10 @@ export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
   uuid: uuid('uuid').default(`uuid_generate_v4()`).unique(),
   commentText: text('comment_text').notNull(),
-  eventId: uuid('event_id').notNull(),  // Assuming event's uuid is used for referencing
+  eventId: uuid('event_id').notNull(), 
   userName: varchar('userName', {length: 100}),
-  //userUuid: uuid('user_uuid').notNull(), // Assuming user's uuid is used for referencing
   //@ts-ignore
-  createdAt: timestamp('created_at').default(`now()`), // Using JS Date for default value
+  createdAt: timestamp('created_at').default(`now()`), 
   //@ts-ignore
-  updatedAt: timestamp('updated_at').default(`now()`), // Using JS Date for default value
-  isDeleted: boolean('is_deleted').default(false), // Optional, for soft deletes
+  updatedAt: timestamp('updated_at').default(`now()`), 
 });

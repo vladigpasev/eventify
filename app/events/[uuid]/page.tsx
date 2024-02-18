@@ -12,18 +12,15 @@ import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs';
 import PurchaseBtn from '@/components/PurchaseBtn';
 import EventComments from '@/components/EventComments';
+import { Metadata, ResolvingMetadata } from 'next';
 
-const db = drizzle(sql);
-
-const isValidUUID = (uuid: any) => {
-    const regexExp = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    return regexExp.test(uuid);
+type Props = {
+    params: { uuid: string }
+    searchParams: { [key: string]: string | string[] | undefined }
 }
 
-async function SeeEventPage({ params }: { params: { uuid: string } }) {
-    const user = await currentUser();
-
-    if (!isValidUUID(params.uuid)) {
+async function getEventById(uuid: any) {
+    if (!isValidUUID(uuid)) {
         notFound();
     }
 
@@ -40,7 +37,7 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
     })
         .from(events)
         .where(and(
-            eq(events.uuid, params.uuid),
+            eq(events.uuid, uuid),
             eq(events.visibility, 'public')
         ))
         .execute();
@@ -52,6 +49,58 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
     }
 
     const currentEvent = currentEventDb[0];
+    return currentEvent;
+}
+
+export async function generateMetadata(
+    { params, searchParams }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    // Read route params to get the post ID
+    const uuid = params.uuid;
+    const currentEvent = await getEventById(uuid);
+
+    if (!currentEvent) {
+        //@ts-ignore
+        return (await parent); // Fallback to parent metadata
+    }
+    // Construct and return the metadata
+    if (currentEvent.thumbnailUrl !== '/images/pngs/event.png') {
+        return {
+            title: `${currentEvent.eventName} | Eventify`,
+            description: currentEvent.description,
+            alternates: {
+                canonical: `https://www.eventify.bg/events/${uuid}`,
+            },
+            openGraph: {
+                images: `${currentEvent.thumbnailUrl}`
+            }
+        }
+    } else {
+        return {
+            title: `${currentEvent.eventName} | Eventify`,
+            description: currentEvent.description,
+            alternates: {
+                canonical: `https://www.eventify.bg/events/${uuid}`,
+            },
+            openGraph: {
+                images: `https://www.eventify.bg/images/pngs/event.png`,
+            }
+        }
+    }
+}
+
+const db = drizzle(sql);
+
+const isValidUUID = (uuid: any) => {
+    const regexExp = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return regexExp.test(uuid);
+}
+
+async function SeeEventPage({ params }: { params: { uuid: string } }) {
+    const user = await currentUser();
+
+    const currentEvent = await getEventById(params.uuid);
 
     return (
         <div>
