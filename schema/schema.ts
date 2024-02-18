@@ -46,3 +46,16 @@ export const eventCustomers = pgTable('eventCustomers', {
   ticketToken: varchar('ticketToken', {length: 255}), // New field for the ticket token
   isEntered: boolean('isEntered').default(false),
 });
+
+export const comments = pgTable('comments', {
+  id: serial('id').primaryKey(),
+  uuid: uuid('uuid').default(`uuid_generate_v4()`).unique(),
+  commentText: text('comment_text').notNull(),
+  eventId: uuid('event_id').notNull(),  // Assuming event's uuid is used for referencing
+  //userUuid: uuid('user_uuid').notNull(), // Assuming user's uuid is used for referencing
+  //@ts-ignore
+  createdAt: timestamp('created_at').default(`now()`), // Using JS Date for default value
+  //@ts-ignore
+  updatedAt: timestamp('updated_at').default(`now()`), // Using JS Date for default value
+  isDeleted: boolean('is_deleted').default(false) // Optional, for soft deletes
+});

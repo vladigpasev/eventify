@@ -11,6 +11,7 @@ import EventTimeSvg from '@/public/images/icons/EventTime';
 import LocationSvg from '@/public/images/icons/Location';
 import EurSign from '@/public/images/icons/EurSign';
 import GoSvg from '@/public/images/icons/GoSvg';
+import EventDetailsPopup from '@/components/EventDetailsPopup';
 
 //@ts-ignore
 function toRad(x) {
@@ -38,6 +39,18 @@ const MyEvents = () => {
     const [isAiPopupOpen, setIsAiPopupOpen] = useState(false);
     const [isShowingAllEvents, setIsShowingAllEvents] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+
+    //@ts-ignore
+    const openEventDetails = (event) => {
+        setSelectedEvent(event);
+    };
+
+    const closeEventDetails = () => {
+        setSelectedEvent(null);
+    };
+
+
 
     const handleAISearchClick = () => {
         setIsAiPopupOpen(true);
@@ -207,8 +220,13 @@ const MyEvents = () => {
                                                     <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Free' : `From ${event.price} BGN`}</div>
                                                 </div>
                                                 {/* @ts-ignore */}
-                                                <a href={`/dashboard/events/${event.uuid}`}><div className='cursor-pointer text-blue-800 hover:opacity-80'><GoSvg /></div></a>
+                                                <button onClick={() => openEventDetails(event)} className="...">
+                                                    <div className='cursor-pointer text-blue-800 hover:opacity-80'><GoSvg /></div>
+                                                </button>
+
+
                                             </div>
+                                            {selectedEvent && <EventDetailsPopup event={selectedEvent} onClose={closeEventDetails} />}
                                             <div className="card-actions justify-end mt-5">
                                                 {/* @ts-ignore */}
                                                 <div className="badge badge-outline text-blue-800">{event.category}</div>

@@ -1,13 +1,12 @@
 import { authMiddleware } from "@clerk/nextjs";
- 
+
 export default authMiddleware({
-  // Only the root route can be accessed while signed out
-  publicRoutes: ['/', '/events', '/signin', '/signup'],
-  // Routes that can always be accessed, and have
-  // no authentication information
-  //ignoredRoutes: ['/no-auth-in-this-route'],
+  // Make the root route and every subroute under /events public
+  publicRoutes: ['/', '/events/:path*', '/signin', '/signup', '/api/:path*'],
+  // Routes that can always be accessed, and have no authentication information
+  // ignoredRoutes: ['/no-auth-in-this-route'],
 });
- 
+
 export const config = {
   // Protects all routes, including api/trpc.
   // See https://clerk.com/docs/references/nextjs/auth-middleware

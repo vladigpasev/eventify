@@ -25,6 +25,7 @@ export async function fetchEvents() {
             price: events.price,
             thumbnailUrl: events.thumbnailUrl,
             category: events.category,
+            description: events.description,
             // Добавете всички други полета, които са ви необходими
         })
             .from(events)
