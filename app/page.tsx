@@ -18,7 +18,7 @@ export default async function Home({ params: { lang } }: any) {
               What would you like to do today?
             </h4>
             <p className="text-white opacity-50 mb-0 max-w-2xl text-lg mx-auto px-10">
-              You want to break free from the monotonous daily routine, but you don't know what you want to do? No problem, here you'll find all sorts of events in your area!
+              You want to break free from the monotonous daily routine, but you do not know what you want to do? No problem, here you will find all sorts of events in your area!
             </p>
 
             <div className='flex items-center justify-center w-full py-10'>
