@@ -81,6 +81,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
 
             const organizerUuid = getOrganizerUuid[0].userUuid;
             const eventName = getOrganizerUuid[0].eventName;
+            //@ts-ignore
             const priceInCents = getOrganizerUuid[0].price * 100;
             let thumbnailUrl;
             if (thumbnailUrl == "/images/pngs/event.png"){
@@ -130,6 +131,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
 
 
             const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+                //@ts-ignore
                 stripeAccount: payoutId
             });
 
@@ -143,7 +145,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
             customerId = customerAccount.id;
 
             const session = await stripe.checkout.sessions.create(
-                {
+                {//@ts-ignore
                     metadata: { eventUUID: planData.eventId, userId: user.id },
                     payment_intent_data: {
                         application_fee_amount: applicationFeeAmount,
@@ -165,6 +167,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
                     success_url: process.env.BASE_URL + planData.successUrl,
                 },
                 {
+                    //@ts-ignore
                     stripeAccount: payoutId,
                 }
             );

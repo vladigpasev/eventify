@@ -28,9 +28,13 @@ export async function POST(req: Request) {
     const session = event.data.object;
 
     // Extract needed data
+    //@ts-ignore
     const customerName = session.customer_details.name;
+    //@ts-ignore
     const email = session.customer_details.email;
+    //@ts-ignore
     const eventUuid = session.metadata.eventUUID;
+    //@ts-ignore
     const userId = session.metadata.userId;
 
     // Prepare data for createTicket

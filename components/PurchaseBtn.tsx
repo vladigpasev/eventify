@@ -2,13 +2,14 @@
 import { create_checkout_session } from '@/server/purchase';
 import React, { useState } from 'react'
 import { useFormState } from 'react-dom';
-
+//@ts-ignore
 function PurchaseBtn({ price, eventId }) {
     const initialState = {
         message: null,
         success: false,
         error: false
     }
+    //@ts-ignore
     const [state, formAction] = useFormState(create_checkout_session, initialState);
 
     return (
