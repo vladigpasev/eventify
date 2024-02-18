@@ -1,6 +1,6 @@
 "use client"
 import { create_checkout_session } from '@/server/purchase';
-import React, { useState } from 'react'
+import React from 'react'
 import { useFormState } from 'react-dom';
 //@ts-ignore
 function PurchaseBtn({ price, eventId }) {

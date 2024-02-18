@@ -2,9 +2,6 @@
 import Stripe from 'stripe';
 import { z } from "zod";
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-//@ts-ignore
-import jwt from 'jsonwebtoken';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { sql } from '@vercel/postgres';
 import { eq } from 'drizzle-orm';
@@ -26,15 +23,13 @@ async function getOrganizerPlan(organizerCustomerId: any) {
         });
 
         if (subscriptions.data.length > 0) {
-            // Пример: извличане на състоянието на първия абонамент
             const subscription = subscriptions.data[0];
             return {
                 status: subscription.status,
                 plan: subscription.items.data[0].price.lookup_key,
-                // Друга полезна информация може да бъде добавена тук
             };
         } else {
-            console.log('No subscriptions found for this customer.');
+            //console.log('No subscriptions found for this customer.');
             return null;
         }
     } catch (error) {
@@ -73,7 +68,6 @@ export async function create_checkout_session(prevState: any, formData: FormData
                 eventName: events.eventName,
                 thumbnailUrl: events.thumbnailUrl,
                 price: events.price,
-                // Добавете всички други полета, които са ви необходими
             })
                 .from(events)
                 .where(eq(events.uuid, planData.eventId))
@@ -84,16 +78,15 @@ export async function create_checkout_session(prevState: any, formData: FormData
             //@ts-ignore
             const priceInCents = getOrganizerUuid[0].price * 100;
             let thumbnailUrl;
-            if (thumbnailUrl == "/images/pngs/event.png"){
+            if (thumbnailUrl == "/images/pngs/event.png") {
                 thumbnailUrl = process.env.BASE_URL + getOrganizerUuid[0].thumbnailUrl;
-            }else{
+            } else {
                 thumbnailUrl = getOrganizerUuid[0].thumbnailUrl;
             }
-                
+
             const getOrganizerPayoutId = await db.select({
                 payoutId: users.payoutId,
                 customerId: users.customerId,
-                // Добавете всички други полета, които са ви необходими
             })
                 .from(users)
                 .where(eq(users.uuid, organizerUuid))
@@ -106,7 +99,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
             let organizerSubscriptionName;
             if (organizerPlan && organizerPlan.status === 'active') {
                 organizerSubscriptionName = organizerPlan.plan;
-                console.log(organizerSubscriptionName);
+                //console.log(organizerSubscriptionName);
             } else {
                 organizerSubscriptionName = 'hobby';
             }
@@ -114,16 +107,16 @@ export async function create_checkout_session(prevState: any, formData: FormData
             let applicationFeePercentage;
             switch (organizerSubscriptionName) {
                 case 'hobby':
-                    applicationFeePercentage = 0.30; // 30% for hobby
+                    applicationFeePercentage = 0.30;
                     break;
                 case 'basic_plan':
-                    applicationFeePercentage = 0.15; // 15% for basic
+                    applicationFeePercentage = 0.15;
                     break;
                 case 'premium_plan':
-                    applicationFeePercentage = 0.05; // 5% for premium
+                    applicationFeePercentage = 0.05;
                     break;
                 default:
-                    applicationFeePercentage = 0.30; // Default to 30%
+                    applicationFeePercentage = 0.30;
                     break;
             }
             const applicationFeeAmount = Math.round(priceInCents * applicationFeePercentage);
@@ -171,27 +164,26 @@ export async function create_checkout_session(prevState: any, formData: FormData
                     stripeAccount: payoutId,
                 }
             );
-    
+
 
 
             const sessionUrl = session.url;
 
-            console.log(sessionUrl)
+            //console.log(sessionUrl)
             return { success: true, sessionUrl };
         } catch (error) {
-            console.error("Post creation error: ", error);
+            console.error(error);
             //@ts-ignore
-            return { success: false, error: process.env.BASE_URL + planData.successUrl };
+            return { success: false, error };
         }
     }
     const sessionUrl = await getSessionUrl();
     if (sessionUrl.success) {
-        // Retrieve the existing token from cookies
-        console.log(sessionUrl)
+        //console.log(sessionUrl)
         //@ts-ignore
         redirect(sessionUrl.sessionUrl);
     } else {
-        console.log(sessionUrl)
+        //console.log(sessionUrl)
         return sessionUrl;
 
     }

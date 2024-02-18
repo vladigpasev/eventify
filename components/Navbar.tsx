@@ -47,7 +47,7 @@ const Navbar = () => {
                         <li><Link href="/#contacts">Contacts</Link></li>
                     </ul>
                     <div className='w-full flex justify-center lg:justify-start'>
-                        <Link href="/dashboard/register" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Sign Up</Link>
+                        <Link href="/events" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Explore events</Link>
                     </div>
                 </div>
             </div>

@@ -8,13 +8,10 @@ import { z } from 'zod';
 
 const db = drizzle(sql);
 
-
-// Function to fetch comments for a specific event
 //@ts-ignore
 export async function fetchComments(data) {
     const commentSchema = z.object({
         eventId: z.string().nonempty().nonempty(),
-
     });
     let commentData;
     try {
@@ -29,15 +26,14 @@ export async function fetchComments(data) {
             id: comments.id,
             comment: comments.commentText,
             userName: comments.userName,
-            // Add other fields as needed
         })
             .from(comments)
             .where(eq(comments.eventId, eventId))
-            .orderBy(desc(comments.createdAt)); // Assuming there's a createdAt field
+            .orderBy(desc(comments.createdAt));
 
         const result = await query.execute();
-        console.log(result)
-        console.log(eventId)
+        //console.log(result)
+        //console.log(eventId)
         return { comments: result };
 
     } catch (error) {
@@ -58,7 +54,7 @@ export async function addComments(data) {
         commentData = commentSchema.parse(data);
     } catch (error) {
         console.error("Validation error: ", error);
-        return { success: false, error: "Data validation failed" };
+        return;
     }
 
     try {
@@ -66,11 +62,10 @@ export async function addComments(data) {
             eventId: commentData.eventId,
             commentText: commentData.comment,
             userName: commentData.userName,
-            // Set other fields as needed, e.g., createdAt
         };
 
         const result = await db.insert(comments).values(newComment).execute();
-        return; // Convert to plain object
+        return;
     } catch (error) {
         //@ts-ignore
         console.error("Error adding comment:", error.message);

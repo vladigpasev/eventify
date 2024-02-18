@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Location from '@/components/Location';
 import { fetchEvents, geocodeLocation } from '@/server/fetchEvents';
 import DashboardNavbar from '@/components/DashboardNavbar';
-import CategoryDropDown from '@/components/CategoryDropDown';
 import { searchWithAi } from '@/server/fetchEvents';
 import AISearchPopup from '@/components/AiSearchPopup';
 import EventTimeSvg from '@/public/images/icons/EventTime';
@@ -30,7 +29,6 @@ function calculateDistance(coord1, coord2) {
     return distance;
 }
 
-
 const MyEvents = () => {
     const [allEvents, setAllEvents] = useState([]);
     const [events, setEvents] = useState([]);
@@ -41,15 +39,13 @@ const MyEvents = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
-    //@ts-ignore
-    const openEventDetails = (event) => {
+    const openEventDetails = (event: any) => {
         setSelectedEvent(event);
     };
 
     const closeEventDetails = () => {
         setSelectedEvent(null);
     };
-
 
 
     const handleAISearchClick = () => {
@@ -59,12 +55,12 @@ const MyEvents = () => {
     const closeAIPopup = () => {
         setIsAiPopupOpen(false);
     };
-    //@ts-ignore
-    const handleAISubmit = async (userPrompt) => {
+
+    const handleAISubmit = async (userPrompt: any) => {
         setIsLoading(true);
         try {
             const response = await searchWithAi(userPrompt);
-            const eventUuids = response.split(';'); // Split the response into UUIDs
+            const eventUuids = response.split(';');
             {/* @ts-ignore */ }
             const selectedEvents = allEvents.filter(event => eventUuids.includes(event.uuid));
             setEvents(selectedEvents.length > 0 ? selectedEvents : []);
@@ -81,7 +77,6 @@ const MyEvents = () => {
         setEvents(allEvents);
         setIsShowingAllEvents(true);
     };
-
 
     //@ts-ignore
     const handleLocationUpdate = async (location) => {
@@ -143,15 +138,17 @@ const MyEvents = () => {
         loadAndSortEvents(userLocation);
     }, [userLocation]);
 
-
-
-
+    //@ts-ignore
+    function submitSearch(e) {
+        e.preventDefault();
+    }
+    
     return (
         <div>
             <DashboardNavbar />
             <div className='p-5 sm:px-20 px-5'>
                 <div className='pb-5 flex sm:flex-row flex-col items-center w-full sm:gap-5 gap-5'>
-                    <form className="sm:w-3/4 w-full">
+                    <form className="sm:w-3/4 w-full" onSubmit={submitSearch}>
                         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         <div className="relative">
                             <input
@@ -179,7 +176,6 @@ const MyEvents = () => {
                 </div>
 
                 <div className='flex sm:flex-row flex-col gap-5 pb-10'>
-                    <CategoryDropDown />
                     <Location onLocationUpdate={handleLocationUpdate} />
                 </div>
 

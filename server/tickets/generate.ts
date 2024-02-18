@@ -19,11 +19,7 @@ export async function createTicket(data: any) {
         email: z.string().nonempty(),
         eventUuid: z.string().nonempty(),
         userId: z.string().nonempty(),
-        // No need to include userUuid here as it's obtained from the token
     });
-    // const token = cookies().get("token")?.value;
-    // const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    // const userUuid = decodedToken.uuid;
 
     try {
         const validatedData = ticketSchema.parse(data);
@@ -38,7 +34,6 @@ export async function createTicket(data: any) {
             clerkUserId: validatedData.userId,
         }).returning({ uuid: eventCustomers.uuid }).execute();
 
-        // Assuming the first element of the array is the inserted row
         const customerUuid = insertResult[0]?.uuid;
 
         // Generate a ticket token using the retrieved uuid
@@ -81,7 +76,8 @@ export async function createTicket(data: any) {
         } else {
             thumbnailUrl = eventData.thumbnailUrl;
         }
-
+        
+        //Send email
 
         let transporter = nodemailer.createTransport({
             host: process.env.EMAIL_SERVER_HOST,
@@ -98,8 +94,8 @@ export async function createTicket(data: any) {
 
         let info = await transporter.sendMail({
             from: '"Eventify" ' + process.env.EMAIL_FROM,
-            to: email, // list of receivers
-            subject: "Ticket Information", // Subject line
+            to: email,
+            subject: "Ticket Information",
             text: 'Hello, ' + customerName + '! This email is to inform you that you have just been signed up for the ' + eventName + ' event! You can see your ticket by clicking on the link. Link: ' + process.env.TICKETS_BASE_URL + '/' + ticketToken,
             html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en"><head><meta charset="UTF-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta name="x-apple-disable-message-reformatting"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta content="telephone=no" name="format-detection"><title>New Template 2</title> <!--[if (mso 16)]><style type="text/css">     a {text-decoration: none;}     </style><![endif]--> <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]--> <!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml>\
                 <![endif]--><style type="text/css">#outlook a { padding:0;}.es-button { mso-style-priority:100!important; text-decoration:none!important;}a[x-apple-data-detectors] { color:inherit!important; text-decoration:none!important; font-size:inherit!important; font-family:inherit!important; font-weight:inherit!important; line-height:inherit!important;}.es-desk-hidden { display:none; float:left; overflow:hidden; width:0; max-height:0; line-height:0; mso-hide:all;}@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } h1 { font-size:36px!important; text-align:left } h2 { font-size:26px!important; text-align:left } h3 { font-size:20px!important; text-align:left } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:36px!important; text-align:left }\
@@ -132,7 +128,7 @@ export async function createTicket(data: any) {
                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"><table cellpadding="0" cellspacing="0" width="100%" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"><tr><td align="center" style="padding:0;Margin:0;display:none"></td> </tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table></div></body></html>',
         });
 
-        console.log("Message sent: %s", info.messageId);
+        //console.log("Message sent: %s", info.messageId);
 
         return { success: true, message: 'Event created successfully', customerUuid, ticketToken };
 

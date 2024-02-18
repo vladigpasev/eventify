@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
             <div className='container mx-auto px-4 flex justify-between items-center flex-grow'>
                 <Link href="/"><img src="/logo.png" alt='Logo' className="w-36" /></Link>
                 <SignedIn>
-                     <UserButton />
+                    <UserButton />
                 </SignedIn>
                 <SignedOut>
                     <Link href="/signin" className='btn bg-[#3042bf] border-none text-white mt-0 ml-4'>Sign In</Link>

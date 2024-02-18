@@ -1,6 +1,4 @@
 "use client"
-// Removed explicit React import due to new JSX Transform in React 17 and Next.js
-
 import { useEffect, useState } from 'react';
 import { fetchComments, addComments } from '@/server/comments';
 
@@ -32,9 +30,10 @@ function EventComments({ eventId, userName, userId }) {
 
         loadComments();
     }, [eventId]);
+
     //@ts-ignore
     const handleAddComment = async (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault();
         try {
             const commentData = {
                 eventId,

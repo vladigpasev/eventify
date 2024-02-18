@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     });
   }
 
-  // Handle the checkout.session.completed event
+  // Handle successful payment
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
@@ -37,6 +37,12 @@ export async function POST(req: Request) {
     //@ts-ignore
     const userId = session.metadata.userId;
 
+    if(!customerName || !email || !eventUuid || !userId){
+      return new Response('Received', {
+        status: 201
+      });
+    }
+
     // Prepare data for createTicket
     const ticketData = {
         customerName,
@@ -47,7 +53,7 @@ export async function POST(req: Request) {
 
     // Call createTicket with the prepared data
     const ticket = await createTicket(ticketData);
-    console.log(ticket);
+    //console.log(ticket);
   }
 
   return new Response('Received', {

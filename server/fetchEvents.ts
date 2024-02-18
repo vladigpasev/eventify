@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 import { events } from '@/schema/schema';
 import { eq } from 'drizzle-orm';
 import { headers } from "next/headers";
-import fetch from 'node-fetch'; // Ensure you have 'node-fetch' installed
+import fetch from 'node-fetch';
 import OpenAI from 'openai';
 
 const db = drizzle(sql);
@@ -26,14 +26,12 @@ export async function fetchEvents() {
             thumbnailUrl: events.thumbnailUrl,
             category: events.category,
             description: events.description,
-            // Добавете всички други полета, които са ви необходими
         })
             .from(events)
             .where(eq(events.visibility, "public"));
 
         const result = await query.execute();
 
-        // Adding the length property directly to the result array
         result.length = result.length;
 
         return result;
@@ -56,7 +54,7 @@ export async function geocodeLocation(address) {
         if (data.results && data.results.length > 0) {
             //@ts-ignore
             const { lat, lng } = data.results[0].geometry.location;
-            console.log("Geocoding result for", address, ":", { lat, lng });
+            //console.log("Geocoding result for", address, ":", { lat, lng });
             return { lat, lng };
         } else {
             console.error('No results found for location:', address);
@@ -87,6 +85,7 @@ export async function getLocationFromIP() {
         return null;
     }
 }
+
 //@ts-ignore
 export async function searchWithAi(userPrompt) {
     const query = db.select({
@@ -97,10 +96,9 @@ export async function searchWithAi(userPrompt) {
         price: events.price,
         description: events.description,
         category: events.category,
-        // Add all other necessary fields such as category, description, etc.
     })
-    .from(events)
-    .where(eq(events.visibility, "public"));
+        .from(events)
+        .where(eq(events.visibility, "public"));
 
     const result = await query.execute();
 
@@ -112,7 +110,6 @@ export async function searchWithAi(userPrompt) {
         prompt += `Event UUID: ${event.uuid}\n`;
         prompt += `Event description: ${event.description}\n`;
         prompt += `Event category: ${event.category}\n`;
-        // Include other details like category, description, etc., if available
         prompt += `Location: ${event.location}\n`;
         prompt += `Price: ${event.price}\n`;
         prompt += `Date: ${formatDate(event.dateTime)}\n`; // Assuming you have a function to format the date
@@ -122,7 +119,7 @@ export async function searchWithAi(userPrompt) {
     // Append user prompt at the end
     prompt += `User Prompt\n"${userPrompt}"`;
 
-    console.log(prompt);
+   // console.log(prompt);
 
     const thread = await openai.beta.threads.create();
     const message = await openai.beta.threads.messages.create(
@@ -165,31 +162,27 @@ export async function searchWithAi(userPrompt) {
         //@ts-ignore
         const responseText = assistantMessage.content.map(content => content.text.value).join(' ');
 
-    console.log("Assistant's Response: ", responseText);
+        //console.log("Assistant's Response: ", responseText);
 
-    // Extract UUIDs from the response using regex
-    const uuidRegex = /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/g;
-    const extractedUuids = responseText.match(uuidRegex);
+        // Extract UUIDs from the response using regex
+        const uuidRegex = /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/g;
+        const extractedUuids = responseText.match(uuidRegex);
 
-    if (extractedUuids && extractedUuids.length > 0) {
-        // Join the UUIDs with a semicolon for easy separation on the client-side
-        const formattedResponse = extractedUuids.join(';');
-        console.log("Formatted UUIDs: ", formattedResponse);
-        return formattedResponse;
+        if (extractedUuids && extractedUuids.length > 0) {
+            // Join the UUIDs with a semicolon for easy separation on the client-side
+            const formattedResponse = extractedUuids.join(';');
+            //console.log("Formatted UUIDs: ", formattedResponse);
+            return formattedResponse;
+        } else {
+            console.error("No UUIDs found in the assistant's response");
+            return "No UUIDs found";
+        }
     } else {
-        console.error("No UUIDs found in the assistant's response");
-        return "No UUIDs found";
+        console.error("No response from the assistant found");
+        return "No response from the assistant found";
     }
-} else {
-    console.error("No response from the assistant found");
-    return "No response from the assistant found";
 }
 
-    // Process the prompt as needed to determine the best event
-    // Return the event UUID or further process as needed
-}
-
-// Example formatDate and formatTime functions (modify according to your date format)
 //@ts-ignore
 function formatDate(dateTime) {
     // Convert dateTime to a readable date format

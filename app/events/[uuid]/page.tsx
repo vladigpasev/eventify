@@ -1,4 +1,3 @@
-// EventManagementPage.jsx
 import React from 'react';
 import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
@@ -13,26 +12,19 @@ import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs';
 import PurchaseBtn from '@/components/PurchaseBtn';
 import EventComments from '@/components/EventComments';
+
 const db = drizzle(sql);
-
-
-type Props = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-}
 
 const isValidUUID = (uuid: any) => {
     const regexExp = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return regexExp.test(uuid);
 }
 
-
 async function SeeEventPage({ params }: { params: { uuid: string } }) {
     const user = await currentUser();
 
     if (!isValidUUID(params.uuid)) {
         notFound();
-        return;
     }
 
     const currentEventDb = await db.select({
@@ -49,11 +41,9 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
         .from(events)
         .where(and(
             eq(events.uuid, params.uuid),
-            eq(events.visibility, 'public') // Add your second condition here
+            eq(events.visibility, 'public')
         ))
         .execute();
-
-
 
     if (currentEventDb.length > 0) {
         // There are results
@@ -62,10 +52,6 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
     }
 
     const currentEvent = currentEventDb[0];
-
-
-    // Here you would have your state and methods for handling changes,
-    // form submissions, and other interactions.
 
     return (
         <div>
@@ -98,8 +84,8 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
                     </div>
                 </div>
 
-                <EventComments eventId={params.uuid} userName={user?.firstName+' '+user?.lastName} userId={user?.id}/>
-                
+                <EventComments eventId={params.uuid} userName={user?.firstName + ' ' + user?.lastName} userId={user?.id} />
+
             </div>
         </div>
     );

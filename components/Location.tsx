@@ -17,7 +17,7 @@ function Location({ onLocationUpdate }) {
                 setLocation(newLocation);
                 onLocationUpdate(newLocation);
             } else {
-                console.error('Geocoding error:', data.status); // Log more detailed error
+                console.error('Geocoding error:', data.status);
                 setLocation('Address not found');
             }
         } catch (error) {
