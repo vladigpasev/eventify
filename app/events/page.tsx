@@ -11,6 +11,7 @@ import LocationSvg from '@/public/images/icons/Location';
 import EurSign from '@/public/images/icons/EurSign';
 import GoSvg from '@/public/images/icons/GoSvg';
 import EventDetailsPopup from '@/components/EventDetailsPopup';
+import Link from 'next/link';
 
 //@ts-ignore
 function toRad(x) {
@@ -142,11 +143,12 @@ const MyEvents = () => {
     function submitSearch(e) {
         e.preventDefault();
     }
-    
+
     return (
         <div>
             <DashboardNavbar />
             <div className='p-5 sm:px-20 px-5'>
+                <Link href="https://organize.eventify.bg" className='btn btn-primary text-white mb-5'>Start Organizing</Link>
                 <div className='pb-5 flex sm:flex-row flex-col items-center w-full sm:gap-5 gap-5'>
                     <form className="sm:w-3/4 w-full" onSubmit={submitSearch}>
                         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
