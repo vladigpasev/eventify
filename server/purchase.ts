@@ -144,8 +144,9 @@ export async function create_checkout_session(prevState: any, formData: FormData
 
             const session = await stripe.checkout.sessions.create(
                 {
+                    metadata: { eventUUID: planData.eventId, userId: user.id },
                     payment_intent_data: {
-                        application_fee_amount: applicationFeeAmount, // Set the application fee
+                        application_fee_amount: applicationFeeAmount,
                     },
                     mode: 'payment',
                     customer: customerId,

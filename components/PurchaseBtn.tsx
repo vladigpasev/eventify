@@ -16,8 +16,8 @@ function PurchaseBtn({ price, eventId }) {
             <form action={formAction}>
                 <input type="hidden" name="price" value={price} />
                 <input type="hidden" name="eventId" value={eventId} />
-                <input type="hidden" name="successUrl" value="/dashboard" />
-                <input type="hidden" name="errorUrl" value="/auth/paymentsetup/error" />
+                <input type="hidden" name="successUrl" value="/my-tickets" />
+                <input type="hidden" name="errorUrl" value="/events" />
                 <button className="btn bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded" id="checkout-and-portal-button" type="submit">Purchase Ticket</button>
             </form>
         </div>

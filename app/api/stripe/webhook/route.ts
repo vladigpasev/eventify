@@ -1,10 +1,6 @@
 import Stripe from 'stripe';
 import { headers } from 'next/headers';
-import { drizzle } from 'drizzle-orm/vercel-postgres';
-import { sql } from '@vercel/postgres';
-import { users } from '@/schema/schema';
-
-const db = drizzle(sql);
+import { createTicket } from '@/server/tickets/generate';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16'
@@ -31,12 +27,23 @@ export async function POST(req: Request) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
 
-    console.log(session);
+    // Extract needed data
+    const customerName = session.customer_details.name;
+    const email = session.customer_details.email;
+    const eventUuid = session.metadata.eventUUID;
+    const userId = session.metadata.userId;
 
-    
-    // Implement your logic for a successful payment here.
-    // For example, updating the user's subscription status in your database.
-    
+    // Prepare data for createTicket
+    const ticketData = {
+        customerName,
+        email,
+        eventUuid,
+        userId
+    };
+
+    // Call createTicket with the prepared data
+    const ticket = await createTicket(ticketData);
+    console.log(ticket);
   }
 
   return new Response('Received', {
