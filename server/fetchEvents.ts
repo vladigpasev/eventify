@@ -5,8 +5,14 @@ import { events } from '@/schema/schema';
 import { eq } from 'drizzle-orm';
 import { headers } from "next/headers";
 import fetch from 'node-fetch'; // Ensure you have 'node-fetch' installed
+import OpenAI from 'openai';
 
 const db = drizzle(sql);
+
+const openai = new OpenAI({
+    organization: "org-aNz8Hs6PinAJZz5FQPF9HbjN",
+    apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function fetchEvents() {
     try {
@@ -78,4 +84,106 @@ export async function getLocationFromIP() {
         console.error('Client IP address not found');
         return null;
     }
+}
+//@ts-ignore
+export async function searchWithAi(userPrompt) {
+    const query = db.select({
+        uuid: events.uuid,
+        eventName: events.eventName,
+        dateTime: events.dateTime,
+        location: events.location,
+        price: events.price,
+        description: events.description,
+        category: events.category,
+        // Add all other necessary fields such as category, description, etc.
+    })
+    .from(events)
+    .where(eq(events.visibility, "public"));
+
+    const result = await query.execute();
+
+    let prompt = "";
+
+    // Iterate over each event and append its details to the prompt string
+    result.forEach(event => {
+        prompt += `Event Name: ${event.eventName}\n`;
+        prompt += `Event UUID: ${event.uuid}\n`;
+        prompt += `Event description: ${event.description}\n`;
+        prompt += `Event category: ${event.category}\n`;
+        // Include other details like category, description, etc., if available
+        prompt += `Location: ${event.location}\n`;
+        prompt += `Price: ${event.price}\n`;
+        prompt += `Date: ${formatDate(event.dateTime)}\n`; // Assuming you have a function to format the date
+        prompt += `Time: ${formatTime(event.dateTime)}\n\n`; // Assuming you have a function to format the time
+    });
+
+    // Append user prompt at the end
+    prompt += `User Prompt\n"${userPrompt}"`;
+
+    console.log(prompt);
+
+    const thread = await openai.beta.threads.create();
+    const message = await openai.beta.threads.messages.create(
+        thread.id,
+        {
+            role: "user",
+            content: prompt
+        }
+    );
+    const run = await openai.beta.threads.runs.create(
+        thread.id,
+        {
+            assistant_id: 'asst_oGN9vAD20XsSgb1Dn9wgNqMv'
+        }
+    );
+
+    const checkRunStatus = async () => {
+        try {
+            const status = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+            return status.status === 'completed';
+        } catch (error) {
+            console.error("Error checking run status:", error);
+            return false;
+        }
+    };
+
+    let isCompleted = await checkRunStatus();
+
+    while (!isCompleted) {
+        await new Promise(resolve => setTimeout(resolve, 2000)); // wait for 2 seconds
+        isCompleted = await checkRunStatus();
+    }
+
+
+    const messages = await openai.beta.threads.messages.list(thread.id);
+
+    const assistantMessage = messages.data.find(message => message.role === 'assistant');
+
+    if (assistantMessage && assistantMessage.content) {
+        //@ts-ignore
+        const responseText = assistantMessage.content.map(content => content.text.value).join(' ');
+        console.log("Assistant's Response: ", responseText);
+        console.log(responseText);
+        return responseText;
+    } else {
+        console.error("No response from the assistant found");
+        return "No response from the assistant found";
+    }
+
+    // Process the prompt as needed to determine the best event
+    // Return the event UUID or further process as needed
+}
+
+// Example formatDate and formatTime functions (modify according to your date format)
+//@ts-ignore
+function formatDate(dateTime) {
+    // Convert dateTime to a readable date format
+    // E.g., 2024-11-20
+    return new Date(dateTime).toLocaleDateString();
+}
+//@ts-ignore
+function formatTime(dateTime) {
+    // Convert dateTime to a readable time format
+    // E.g., 2:00 PM
+    return new Date(dateTime).toLocaleTimeString();
 }
