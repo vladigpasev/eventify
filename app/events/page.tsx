@@ -7,6 +7,10 @@ import DashboardNavbar from '@/components/DashboardNavbar';
 import CategoryDropDown from '@/components/CategoryDropDown';
 import { searchWithAi } from '@/server/fetchEvents';
 import AISearchPopup from '@/components/AiSearchPopup';
+import EventTimeSvg from '@/public/images/icons/EventTime';
+import LocationSvg from '@/public/images/icons/Location';
+import EurSign from '@/public/images/icons/EurSign';
+import GoSvg from '@/public/images/icons/GoSvg';
 
 //@ts-ignore
 function toRad(x) {
@@ -46,17 +50,19 @@ const MyEvents = () => {
     const handleAISubmit = async (userPrompt) => {
         setIsLoading(true);
         try {
-            const eventUuid = await searchWithAi(userPrompt);
-            //@ts-ignore
-            const selectedEvent = allEvents.find(event => event.uuid === eventUuid);
-            setEvents(selectedEvent ? [selectedEvent] : []);
-            setIsShowingAllEvents(false);
+            const response = await searchWithAi(userPrompt);
+            const eventUuids = response.split(';'); // Split the response into UUIDs
+            {/* @ts-ignore */ }
+            const selectedEvents = allEvents.filter(event => eventUuids.includes(event.uuid));
+            setEvents(selectedEvents.length > 0 ? selectedEvents : []);
+            setIsShowingAllEvents(selectedEvents.length === allEvents.length);
         } catch (error) {
             console.error('Error in AI search:', error);
         } finally {
             setIsLoading(false);
         }
     };
+
 
     const showAllEvents = () => {
         setEvents(allEvents);
@@ -179,45 +185,35 @@ const MyEvents = () => {
                         }
                         <div className='w-full flex flex-grow items-center justify-center'>
 
-                            <div className={`grid ${events.length >= 3 ? 'md:grid-cols-4 sm:grid-cols-3' : 'grid-cols-1 justify-items-center'} supersmall:grid-cols-2 gap-5 w-fit`}>
+                            <div className={`grid ${events.length >= 3 ? 'md:grid-cols-4 sm:grid-cols-3' : 'md:grid-cols-4 sm:grid-cols-3'} supersmall:grid-cols-2 gap-5 w-fit`}>
                                 {events.map(event => (
-                                    //@ts-ignore
-                                    <div key={event.uuid} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">                                <a href="#" >
-                                        <div className='h-64 p-5'>
-                                            {/*@ts-ignore*/}
-                                            <img className="w-full h-full object-cover object-center rounded" src={event.thumbnailUrl} alt="product image" />
+                                    /* @ts-ignore */
+                                    <div key={event.uuid} className='bg-white w-46 p-3 rounded overflow-hidden shadow-xl'>
+                                        <div className='pb-2 h-60'>
+                                            {/* @ts-ignore */}
+                                            <img src={event.thumbnailUrl} alt="Event Image" className='w-full h-full object-cover object-center rounded' />
                                         </div>
-                                    </a>
-                                        <div className="px-5 pb-5">
-                                            <a href="#">
-                                                {/*@ts-ignore*/}
-                                                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{event.eventName}</h5>
-                                            </a>
-                                            <div className="flex items-center mt-2.5 mb-5">
-                                                <div className="flex items-center space-x-1 rtl:space-x-reverse">
-                                                    <svg className="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg className="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg className="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg className="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
-                                                    <svg className="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                    </svg>
+                                        <div className='flex flex-col flex-grow'>
+                                            {/* @ts-ignore */}
+                                            <div className="text-black text-base font-normal">{event.eventName}</div>
+                                            {/* @ts-ignore */}
+                                            <div className='flex items-center gap-1'><EventTimeSvg /><div className="text-stone-500 text-[10.36px] font-medium">{new Date(event.dateTime).toLocaleString()}</div></div>
+                                            {/* @ts-ignore */}
+                                            <div className='flex items-center gap-1'><LocationSvg /><div className="text-stone-500 text-[10.36px] font-medium">{event.location}</div></div>
+                                            <div className='flex flex-row justify-between mt-2'>
+                                                <div className='flex items-center gap-1'>
+                                                    <EurSign />
+                                                    {/* @ts-ignore */}
+                                                    <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Free' : `From ${event.price} BGN`}</div>
                                                 </div>
-                                                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+                                                {/* @ts-ignore */}
+                                                <a href={`/dashboard/events/${event.uuid}`}><div className='cursor-pointer text-blue-800 hover:opacity-80'><GoSvg /></div></a>
                                             </div>
-                                            <div className="flex items-center justify-between">
-                                                {/*@ts-ignore*/}
-                                                <span className="text-3xl font-bold text-gray-900 dark:text-white">{event.isFree ? 'Free' : `${event.price} BGN`}</span>
-                                                <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+                                            <div className="card-actions justify-end mt-5">
+                                                {/* @ts-ignore */}
+                                                <div className="badge badge-outline text-blue-800">{event.category}</div>
                                             </div>
+
                                         </div>
                                     </div>
                                 ))}

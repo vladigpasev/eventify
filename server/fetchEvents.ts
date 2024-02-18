@@ -24,6 +24,7 @@ export async function fetchEvents() {
             isFree: events.isFree,
             price: events.price,
             thumbnailUrl: events.thumbnailUrl,
+            category: events.category,
             // Добавете всички други полета, които са ви необходими
         })
             .from(events)
@@ -162,13 +163,26 @@ export async function searchWithAi(userPrompt) {
     if (assistantMessage && assistantMessage.content) {
         //@ts-ignore
         const responseText = assistantMessage.content.map(content => content.text.value).join(' ');
-        console.log("Assistant's Response: ", responseText);
-        console.log(responseText);
-        return responseText;
+
+    console.log("Assistant's Response: ", responseText);
+
+    // Extract UUIDs from the response using regex
+    const uuidRegex = /[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}/g;
+    const extractedUuids = responseText.match(uuidRegex);
+
+    if (extractedUuids && extractedUuids.length > 0) {
+        // Join the UUIDs with a semicolon for easy separation on the client-side
+        const formattedResponse = extractedUuids.join(';');
+        console.log("Formatted UUIDs: ", formattedResponse);
+        return formattedResponse;
     } else {
-        console.error("No response from the assistant found");
-        return "No response from the assistant found";
+        console.error("No UUIDs found in the assistant's response");
+        return "No UUIDs found";
     }
+} else {
+    console.error("No response from the assistant found");
+    return "No response from the assistant found";
+}
 
     // Process the prompt as needed to determine the best event
     // Return the event UUID or further process as needed
