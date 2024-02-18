@@ -1,12 +1,7 @@
 import React from 'react';
-import Location from '@/components/Location';
 import DashboardNavbar from '@/components/DashboardNavbar';
-import CategoryDropDown from '@/components/CategoryDropDown';
-import AISearchPopup from '@/components/AiSearchPopup';
 import EventTimeSvg from '@/public/images/icons/EventTime';
 import LocationSvg from '@/public/images/icons/Location';
-import EurSign from '@/public/images/icons/EurSign';
-import GoSvg from '@/public/images/icons/GoSvg';
 import { eventCustomers, events } from '@/schema/schema';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { sql } from '@vercel/postgres';
