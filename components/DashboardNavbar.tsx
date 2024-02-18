@@ -15,13 +15,21 @@ const DashboardNavbar = () => {
 
     return (
         <nav className={`w-full navbar-transition z-50 bg-white shadow-md transition-all duration-300 ease-in-out py-3`}>
-            <div className='container mx-auto px-4 flex justify-between items-center flex-grow'>
+            <div className='container mx-auto px-4 flex sm:flex-row flex-col sm:gap-0 gap-3 justify-between items-center flex-grow'>
                 <Link href="/"><img src="/logo.png" alt='Logo' className="w-36" /></Link>
                 <SignedIn>
-                    <UserButton />
+                    <div className='flex flex-row-reverse items-center gap-5'>
+                        <UserButton />
+                        <Link href='/my-tickets' className='bg-gray-200 rounded p-2 btn'>My Tickets</Link>
+                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Explore Events</Link>
+                    </div>
                 </SignedIn>
                 <SignedOut>
-                    <Link href="/signin" className='btn bg-[#3042bf] border-none text-white mt-0 ml-4'>Sign In</Link>
+                    <div className='flex flex-row-reverse items-center gap-5'>
+                        <Link href="/signin" className='btn bg-[#3042bf] border-none text-white mt-0 ml-4'>Sign In</Link>
+                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Explore Events</Link>
+                    </div>
+
                 </SignedOut>
             </div>
         </nav>
