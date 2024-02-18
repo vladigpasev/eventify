@@ -4,10 +4,6 @@ import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { and, eq } from 'drizzle-orm';
 import { events } from '@/schema/schema';
-//@ts-ignore
-import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers'
-import Stripe from 'stripe';
 import { notFound } from 'next/navigation';
 import DashboardNavbar from '@/components/DashboardNavbar';
 import EventTimeSvg from '@/public/images/icons/EventTime';
@@ -16,7 +12,7 @@ import EurSign from '@/public/images/icons/EurSign';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs';
 import PurchaseBtn from '@/components/PurchaseBtn';
-
+import EventComments from '@/components/EventComments';
 const db = drizzle(sql);
 
 
@@ -56,14 +52,6 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
             eq(events.visibility, 'public') // Add your second condition here
         ))
         .execute();
-
-
-    const comments = [
-        { id: 1, user: 'User1', comment: 'This event looks exciting!' },
-        { id: 2, user: 'User2', comment: 'Looking forward to it.' },
-        // ... more comments ...
-    ];
-
 
 
 
@@ -110,22 +98,8 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
                     </div>
                 </div>
 
-                <div className="bg-white shadow-lg rounded-lg p-6">
-                    <h2 className="font-semibold text-xl mb-4">Comments</h2>
-                    <div className="space-y-4">
-                        {comments.map(comment => (
-                            <div key={comment.id} className="flex items-start space-x-4">
-                                <div className="p-2 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center h-10 w-10">
-                                    {comment.user[0]}
-                                </div>
-                                <div className="flex-1 bg-gray-100 p-4 rounded-lg">
-                                    <p className="font-semibold">{comment.user}</p>
-                                    <p>{comment.comment}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <EventComments eventId={params.uuid} userName={user?.firstName+' '+user?.lastName} userId={user?.id}/>
+                
             </div>
         </div>
     );

@@ -36,6 +36,20 @@
       "when": 1708271120045,
       "tag": "0004_safe_kat_farrell",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1708281898653,
+      "tag": "0005_windy_power_pack",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1708282360919,
+      "tag": "0006_nostalgic_salo",
+      "breakpoints": true
     }
   ]
 }
