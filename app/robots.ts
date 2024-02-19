@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 import { MetadataRoute } from 'next'
  
 export default function robots(): MetadataRoute.Robots {

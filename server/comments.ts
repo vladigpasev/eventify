@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 "use server";
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { sql } from '@vercel/postgres';

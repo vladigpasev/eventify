@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 import React from 'react'
 import AllEvents from './client'
 import type { Metadata } from 'next'

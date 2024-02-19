@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 import React from 'react';
 import { SignIn } from "@clerk/nextjs";
 import { Metadata } from 'next';

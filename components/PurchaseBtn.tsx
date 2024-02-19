@@ -1,3 +1,5 @@
+
+//Copyright (C) 2024  Vladimir Pasev
 "use client"
 import { create_checkout_session } from '@/server/purchase';
 import React from 'react'

@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 "use client"
 import { useEffect, useState } from 'react';
 import { fetchComments, addComments } from '@/server/comments';

@@ -1,4 +1,4 @@
-// Location.js
+//Copyright (C) 2024  Vladimir Pasev
 import React, { useEffect, useState } from 'react';
 import { getLocationFromIP } from '@/server/fetchEvents';
 

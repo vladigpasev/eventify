@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 import Link from 'next/link';
 import Pricing from '@/components/Pricing';
 import Navbar from '@/components/Navbar';

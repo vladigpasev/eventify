@@ -1,3 +1,4 @@
+//Copyright (C) 2024  Vladimir Pasev
 import React from 'react';
 import DashboardNavbar from '@/components/DashboardNavbar';
 import EventTimeSvg from '@/public/images/icons/EventTime';
