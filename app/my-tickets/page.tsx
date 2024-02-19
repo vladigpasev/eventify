@@ -8,6 +8,7 @@ import { sql } from '@vercel/postgres';
 import { eq } from 'drizzle-orm';
 import { currentUser } from '@clerk/nextjs';
 import { Metadata } from 'next';
+import { desc } from 'drizzle-orm';
 
 export const metadata: Metadata = {
     title: 'My Tickets | Eventify',
@@ -31,6 +32,7 @@ export default async function MyEvents() {
         .from(eventCustomers)
         //@ts-ignore
         .where(eq(eventCustomers.clerkUserId, user.id))
+        .orderBy(desc(eventCustomers.id))
         .execute();
 
     let allEvents = [];
