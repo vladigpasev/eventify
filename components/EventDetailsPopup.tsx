@@ -17,7 +17,7 @@ const EventDetailsPopup = ({ event, onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-opacity-80 z-50 flex justify-center items-center min-h-screen boxbg">
-            <div className="rounded-lg shadow-xl max-w-xl w-full bg-white p-6 max-h-screen" style={backgroundImageStyle}>
+            <div className="rounded-lg shadow-xl max-w-xl w-full bg-white p-6 max-h-screen overflow-y-auto" style={backgroundImageStyle}>
                 <div className="font-sans text-md text-gray-700">
                     <h2 className="text-xl font-semibold mb-2">{event.eventName}</h2>
                     <div className='flex items-center gap-2 mb-3'>
