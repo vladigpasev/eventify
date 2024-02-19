@@ -66,7 +66,7 @@ function Location({ onLocationUpdate }) {
             <input
                 type="text"
                 className="sm:w-96 w-full border font-normal focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5"
-                placeholder='Location'
+                placeholder='Локация'
                 value={location}
                 readOnly
             />

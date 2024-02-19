@@ -7,35 +7,35 @@ export default function Pricing() {
             id: 1,
             title: "Hobby",
             price: 0,
-            description: "Perfect for hobby event creators.",
+            description: "Идеален за участници в събития и създатели на хоби събития.",
             features: [
-                { text: "Create up to 5 events per month", type: "included" },
-                { text: "Event advertising as add-on (COMING SOON)", type: "partially-included" },
-                { text: "30% commission per event", type: "partially-included" },
+                { text: "Създай до 5 събития", type: "included" },
+                { text: "Реклама на събития като допълнение (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
+                { text: "30% комисионна за всяко събитие", type: "partially-included" },
             ],
         },
         {
             id: 2,
             title: "Basic",
             price: 12,
-            description: "Perfect for event organizers with up to 20 events/month.",
+            description: "Идеален за организатори на събития с до 20 събития на месец.",
             features: [
-                { text: "Everything included in Hobby", type: "included" },
-                { text: "Create up to 20 events per month", type: "included" },
-                { text: "Event advertising as add-on with 20% discount (COMING SOON)", type: "partially-included" },
-                { text: "15% commission per event", type: "partially-included" },
+                { text: "Всичко включено в Hobby", type: "included" },
+                { text: "Създай до 20 събития", type: "included" },
+                { text: "Реклама на събития като допълнение с 20% отстъпка (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
+                { text: "15% комисионна за всяко събитие", type: "partially-included" },
             ],
         },
         {
             id: 3,
             title: "Premium",
             price: 28,
-            description: "Perfect for event organizers with lots of events.",
+            description: "Идеален за организатори на събития с много събития.",
             features: [
-                { text: "Everything included in Basic", type: "included" },
-                { text: "Create unlimited events per month", type: "included" },
-                { text: "All event advertising features are enabled (COMING SOON)", type: "included" },
-                { text: "5% commission per event", type: "partially-included" }
+                { text: "Всичко включено в Basic", type: "included" },
+                { text: "Създай неограничен брой събития", type: "included" },
+                { text: "Всички функции за реклама на събития са активирани (ОЧАКВАЙТЕ СКОРО)", type: "included" },
+                { text: "5% комисионна за всяко събитие", type: "partially-included" }
             ],
         },
     ];
@@ -69,14 +69,14 @@ export default function Pricing() {
                 <div >
                     <div className="grid grid-cols-1 pb-8 text-center">
                         <h6 className="text-lg font-semibold text-blue-700 mb-3">
-                            PRICING
+                        ЦЕНООБРАЗУВАНЕ
                         </h6>
                         <h3 className="mb-4 text-3xl lg:text-4xl font-bold">
-                            Packages
+                        Пакети
                         </h3>
 
                         <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">
-                            Start creating events without the need for a large budget.
+                        Започни да създаваш събития без да е необходимо да имаш голям бюджет.
                         </p>
                     </div>
 
@@ -96,7 +96,7 @@ export default function Pricing() {
                                             <span className="text-5xl font-semibold dark:text-white">
                                                 {item.price}
                                             </span>
-                                            <span className="inline-block ms-1">/ month</span>
+                                            <span className="inline-block ms-1">/ месец</span>
                                         </div>
                                         <p className="mb-6 text-slate-430 dark:text-slate-300">
                                             {item.description}
@@ -105,7 +105,7 @@ export default function Pricing() {
                                             href={`https://organize.eventify.bg/`}
                                             className="btn bg-primary border-primary text-white rounded-md w-full"
                                         >
-                                            Start organising
+                                            Организирай събитие
                                         </Link>
                                     </div>
                                     <div className="border-b border-slate-200 dark:border-slate-700"></div>
@@ -137,7 +137,7 @@ export default function Pricing() {
                         ))}
                     </div>
                     <div className="flex justify-center text-slate-400 dark:text-slate-300 mt-2">
-                        <span className="text-primary">*</span>No credit card required
+                        <span className="text-primary">*</span>Не се изисква кредитна карта
                     </div>
                 </div>
             </section>

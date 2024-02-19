@@ -123,11 +123,11 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
                             <div className='flex justify-between items-center mb-4'>
                                 <div className='flex items-center gap-2'>
                                     <EurSign />
-                                    <span className='font-semibold'>{currentEvent.isFree ? 'Free' : `From ${currentEvent.price} BGN`}</span>
+                                    <span className='font-semibold'>{currentEvent.isFree ? 'Безплатно' : `${currentEvent.price} BGN`}</span>
                                 </div>
                             </div>
                             <SignedIn><PurchaseBtn price={currentEvent.price} eventId={params.uuid} /></SignedIn>
-                            <SignedOut><p className='text-gray-400 mt-10'>You need a registration to buy a ticket, please register!</p></SignedOut>
+                            <SignedOut><p className='text-gray-400 mt-10'>За да си купите билет, трябва да се регистрирате, моля, регистрирайте се!</p></SignedOut>
 
                         </div>
                     </div>

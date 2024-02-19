@@ -39,15 +39,15 @@ const Navbar = () => {
                 </div>
                 <div className={`lg:flex lg:items-center ${isOpen ? 'block' : 'hidden'} absolute lg:static top-full left-0 right-0 bg-white lg:bg-transparent shadow-md lg:shadow-none py-4 lg:p-0`}>
                     <ul className={`flex flex-col lg:flex-row gap-6 ${isScrolled ? 'text-black' : 'text-black lg:text-gray-300'} items-center whitespace-nowrap`}>
-                        <li><Link href="/#">Home</Link></li>
-                        <li><Link href="/#about">About Us</Link></li>
-                        <li><Link href="/#services">Services</Link></li>
-                        <li><Link href="/#reviews">Reviews</Link></li>
-                        <li><Link href="/#pricing">Pricing</Link></li>
-                        <li><Link href="/#contacts">Contacts</Link></li>
+                        <li><Link href="/#">Начало</Link></li>
+                        <li><Link href="/#about">За нас</Link></li>
+                        <li><Link href="/#services">Услуги</Link></li>
+                        <li><Link href="/#reviews">Рейтинги</Link></li>
+                        <li><Link href="/#pricing">Цени</Link></li>
+                        <li><Link href="/#contacts">Контакти</Link></li>
                     </ul>
                     <div className='w-full flex justify-center lg:justify-start'>
-                        <Link href="/events" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Explore events</Link>
+                        <Link href="/events" className='btn bg-[#3042bf] border-none text-white mt-4 lg:mt-0 lg:ml-4'>Виж събития</Link>
                     </div>
                 </div>
             </div>

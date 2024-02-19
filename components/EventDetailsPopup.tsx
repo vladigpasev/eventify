@@ -32,12 +32,12 @@ const EventDetailsPopup = ({ event, onClose }) => {
                     <div className='flex justify-between items-center mb-4'>
                         <div className='flex items-center gap-2'>
                             <EurSign />
-                            <span className='font-semibold'>{event.isFree ? 'Free' : `From ${event.price} BGN`}</span>
+                            <span className='font-semibold'>{event.isFree ? 'Безплатно' : `От ${event.price} USD`}</span>
                         </div>
                     </div>
                     <div className='flex gap-4'>
-                        <Link className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition duration-200 btn" href={`/events/${event.uuid}`}>See More</Link>
-                        <button className="bg-gray-300 text-black px-6 py-2 rounded hover:bg-gray-400 transition duration-200 btn" onClick={onClose}>Close</button>
+                        <Link className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition duration-200 btn" href={`/events/${event.uuid}`}>Виж повече</Link>
+                        <button className="bg-gray-300 text-black px-6 py-2 rounded hover:bg-gray-400 transition duration-200 btn" onClick={onClose}>Затваряне</button>
                     </div>
                 </div>
             </div>

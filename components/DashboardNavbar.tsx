@@ -20,16 +20,15 @@ const DashboardNavbar = () => {
                 <SignedIn>
                     <div className='flex flex-row-reverse items-center gap-5'>
                         <UserButton />
-                        <Link href='/my-tickets' className='bg-gray-200 rounded p-2 btn'>My Tickets</Link>
-                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Explore Events</Link>
+                        <Link href='/my-tickets' className='bg-gray-200 rounded p-2 btn'>Билети</Link>
+                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Събития</Link>
                     </div>
                 </SignedIn>
                 <SignedOut>
                     <div className='flex flex-row-reverse items-center gap-5'>
-                        <Link href="/signin" className='btn bg-[#3042bf] border-none text-white mt-0 ml-4'>Sign In</Link>
-                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Explore Events</Link>
+                        <Link href="/signin" className='btn bg-[#3042bf] border-none text-white mt-0 ml-4'>Вход</Link>
+                        <Link href='/events' className='bg-gray-200 rounded p-2 btn'>Събития</Link>
                     </div>
-
                 </SignedOut>
             </div>
         </nav>

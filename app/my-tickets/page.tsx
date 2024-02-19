@@ -11,8 +11,8 @@ import { Metadata } from 'next';
 import { desc } from 'drizzle-orm';
 
 export const metadata: Metadata = {
-    title: 'My Tickets | Eventify',
-    description: 'In this page you can see and access all your purchased tickets.',
+    title: 'Моите билети | Eventify',
+    description: 'В тази страница можете да видите и да получите достъп до всички закупени билети.',
     alternates: {
         canonical: `https://www.eventify.bg/my-tickets`,
     },
@@ -64,7 +64,7 @@ export default async function MyEvents() {
             <div className='p-5 sm:px-20 px-5'>
 
                 <div>
-                    <h1 className='text-xl font-medium'>My Tickets</h1>
+                    <h1 className='text-xl font-medium'>Моите билети</h1>
                     <div className='w-full flex flex-grow items-center justify-center'>
 
                         <div className={`grid md:grid-cols-4 sm:grid-cols-3 supersmall:grid-cols-2 gap-5 w-fit`}>
@@ -85,7 +85,7 @@ export default async function MyEvents() {
                                         <div className='flex flex-row justify-between mt-2'>
                                             {/* @ts-ignore */}
                                             <a href={`https://tickets.eventify.bg/` + event.ticketToken} target='_blank'>
-                                                <div className='cursor-pointer text-blue-800 hover:opacity-80 btn'>See Ticket</div>
+                                                <div className='cursor-pointer text-blue-800 hover:opacity-80 btn'>Виж билет</div>
                                             </a>
                                         </div>
                                         <div className="card-actions justify-end mt-5">

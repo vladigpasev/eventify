@@ -3,8 +3,8 @@ import { SignIn } from "@clerk/nextjs";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Sign In | Eventify',
-    description: 'Sign in to your Eventify account',
+    title: 'Вход | Eventify',
+    description: 'Влезте в профила си в Eventify',
     alternates: {
         canonical: `https://www.eventify.bg/signin`,
     },

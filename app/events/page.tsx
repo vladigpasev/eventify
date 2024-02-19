@@ -5,8 +5,8 @@ import type { Metadata } from 'next'
 export const maxDuration = 300;
 
 export const metadata: Metadata = {
-    title: 'Events | Eventify',
-    description: 'What do you want to do this weekend? Go to a party? Take part in a workshop? Find your opportunities at Eventify!',
+    title: 'Събития | Eventify',
+    description: 'Какво ти се прави този уикенд? Ходи ти се на парти? Участва ти се в семинар? Намери възможности в Eventify!',
     alternates: {
         canonical: `https://www.eventify.bg/events`,
     },

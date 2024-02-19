@@ -148,16 +148,16 @@ const AllEvents = () => {
         <div>
             <DashboardNavbar />
             <div className='p-5 sm:px-20 px-5'>
-                <Link href="https://organize.eventify.bg" className='btn btn-primary text-white mb-5'>Start Organizing</Link>
+                <Link href="https://organize.eventify.bg" className='btn btn-primary text-white mb-5'>Организирай събитие</Link>
                 <div className='pb-5 flex sm:flex-row flex-col items-center w-full sm:gap-5 gap-5'>
                     <form className="sm:w-3/4 w-full" onSubmit={submitSearch}>
-                        <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Търсене</label>
                         <div className="relative">
                             <input
                                 type="search"
                                 id="default-search"
                                 className="block w-full px-4 pe-10 py-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Search Events..."
+                                placeholder="Търси събития..."
                                 value={searchQuery}
                                 onChange={(e) => handleSearch(e.target.value)}
                                 required
@@ -172,7 +172,7 @@ const AllEvents = () => {
                     <button
                         onClick={handleAISearchClick}
                         className="btn sm:w-96 w-full px-4 py-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex justify-between items-center">
-                        <span>Search with AI</span>
+                        <span>Търси с</span>
                         <span className='font-poppins font-bold text-base leading-6 tracking-wide text-blue-500'>AI</span>
                     </button>
                 </div>
@@ -183,7 +183,7 @@ const AllEvents = () => {
 
                 {isLoading ? (
                     <div className="flex justify-center items-center h-64">
-                        <div>Loading...</div>
+                        <div>Зареждане...</div>
                     </div>
                 ) : (
                     <div>
@@ -191,7 +191,7 @@ const AllEvents = () => {
                             <button
                                 onClick={showAllEvents}
                                 className="btn mb-5 px-4 py-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                Show All Events
+                                Покажи всички събития
                             </button>
                         }
                         <div className='w-full flex flex-grow items-center justify-center'>
@@ -215,7 +215,7 @@ const AllEvents = () => {
                                                 <div className='flex items-center gap-1'>
                                                     <EurSign />
                                                     {/* @ts-ignore */}
-                                                    <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Free' : `From ${event.price} BGN`}</div>
+                                                    <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Безплатно' : `От ${event.price} USD`}</div>
                                                 </div>
                                                 {/* @ts-ignore */}
                                                 <button onClick={() => openEventDetails(event)} className="...">

@@ -3,8 +3,8 @@ import { SignUp } from "@clerk/nextjs";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Sign Up | Eventify',
-    description: 'Sign up an Eventify account',
+    title: 'Регистрация | Eventify',
+    description: 'Регистрирайте акаунт в Eventify',
     alternates: {
         canonical: `https://www.eventify.bg/signup`,
     },
