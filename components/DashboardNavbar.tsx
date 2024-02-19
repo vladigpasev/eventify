@@ -16,7 +16,7 @@ const DashboardNavbar = () => {
     return (
         <nav className={`w-full navbar-transition z-50 bg-white shadow-md transition-all duration-300 ease-in-out py-3`}>
             <div className='container mx-auto px-4 flex sm:flex-row flex-col sm:gap-0 gap-3 justify-between items-center flex-grow'>
-                <Link href="/"><img src="/logo.png" alt='Logo' className="w-36" /></Link>
+                <Link href="/events"><img src="/logo.png" alt='Logo' className="w-36" /></Link>
                 <SignedIn>
                     <div className='flex flex-row-reverse items-center gap-5'>
                         <UserButton />
