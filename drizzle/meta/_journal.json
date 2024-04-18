@@ -64,6 +64,13 @@
       "when": 1708292922982,
       "tag": "0008_nebulous_vindicator",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1713422624079,
+      "tag": "0009_secret_thunderbolt",
+      "breakpoints": true
     }
   ]
 }

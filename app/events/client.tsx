@@ -21,6 +21,7 @@ function toRad(x) {
 }
 //@ts-ignore
 function calculateDistance(coord1, coord2) {
+    console.log("Coord1: " + coord1 + "Coord2: " + coord2)
     const R = 6371; // Earth radius in km
     const dLat = toRad(coord2.lat - coord1.lat);
     const dLon = toRad(coord2.lng - coord1.lng);
@@ -88,43 +89,39 @@ const AllEvents = () => {
     };
     //@ts-ignore
     const loadAndSortEvents = async (location) => {
+        setIsLoading(true);  // Start loading before fetching events
         try {
-            const fetchedEvents = await fetchEvents();
-
+            const fetchedEvents = await fetchEvents(); // Fetch events from your source
+    
             if (location) {
-                const userCoords = await geocodeLocation(location);
-
-                const eventsWithCoordinates = await Promise.all(fetchedEvents.map(async event => {
-                    const eventCoords = await geocodeLocation(event.location);
-                    return { ...event, coords: eventCoords };
-                }));
-
-                const eventsWithDistances = await Promise.all(eventsWithCoordinates.map(async event => {
+                const userCoords = await geocodeLocation(location); // Get the user's coordinates
+    
+                const eventsWithDistances = await Promise.all(fetchedEvents.map(async event => {
                     try {
-                        const distance = calculateDistance(userCoords, event.coords);
+                        const eventCoordinates = JSON.parse(event.eventCoordinates);
+                        const distance = calculateDistance(userCoords, eventCoordinates);
                         return { ...event, distance };
                     } catch (error) {
                         console.log(`Error calculating distance for event ${event.eventName}:`, error);
                         return { ...event, distance: Infinity };
                     }
                 }));
-
+    
                 const sortedEvents = eventsWithDistances.sort((a, b) => a.distance - b.distance);
-                //@ts-ignore
                 setAllEvents(fetchedEvents);
-                //@ts-ignore
                 setEvents(sortedEvents);
             } else {
-                // Location is not available, set events unsorted
-                //@ts-ignore
+                // If location is not available, set events unsorted
                 setAllEvents(fetchedEvents);
-                //@ts-ignore
                 setEvents(fetchedEvents);
             }
         } catch (error) {
             console.error('Error fetching and sorting events:', error);
+        } finally {
+            setIsLoading(false);  // Stop loading once everything is done
         }
     };
+    
     //@ts-ignore
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -138,9 +135,13 @@ const AllEvents = () => {
     };
 
     useEffect(() => {
-        loadAndSortEvents(userLocation);
+        if (userLocation) {
+            loadAndSortEvents(userLocation);
+        } else {
+            setIsLoading(false); // Ensure loading is false if no location
+        }
     }, [userLocation]);
-
+    
     //@ts-ignore
     function submitSearch(e) {
         e.preventDefault();

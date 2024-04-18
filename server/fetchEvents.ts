@@ -27,6 +27,7 @@ export async function fetchEvents() {
             thumbnailUrl: events.thumbnailUrl,
             category: events.category,
             description: events.description,
+            eventCoordinates: events.eventCoordinates
         })
             .from(events)
             .where(eq(events.visibility, "public"));
