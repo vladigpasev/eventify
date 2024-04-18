@@ -60,7 +60,12 @@ function Location({ onLocationUpdate }) {
     useEffect(() => {
         getLocation();
     }, []);
-
+    /* @ts-ignore */
+    const handleLocationChange = (e) => {
+        const newLocation = e.target.value;
+        setLocation(newLocation);
+        onLocationUpdate(newLocation);
+    };
     return (
         <div className='flex flex-row items-center gap-2'>
             <input
@@ -68,7 +73,9 @@ function Location({ onLocationUpdate }) {
                 className="sm:w-96 w-full border font-normal focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5"
                 placeholder='Локация'
                 value={location}
-                readOnly
+                onChange={handleLocationChange}
+
+                //readOnly
             />
             <div className='btn bg-white hover:bg-white border rounded-lg p-2.5' onClick={getLocation}>
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
