@@ -98,6 +98,7 @@ const AllEvents = () => {
     
                 const eventsWithDistances = await Promise.all(fetchedEvents.map(async event => {
                     try {
+                        //@ts-ignore
                         const eventCoordinates = JSON.parse(event.eventCoordinates);
                         const distance = calculateDistance(userCoords, eventCoordinates);
                         return { ...event, distance };
@@ -108,11 +109,15 @@ const AllEvents = () => {
                 }));
     
                 const sortedEvents = eventsWithDistances.sort((a, b) => a.distance - b.distance);
+                //@ts-ignore
                 setAllEvents(fetchedEvents);
+                //@ts-ignore
                 setEvents(sortedEvents);
             } else {
                 // If location is not available, set events unsorted
+                //@ts-ignore
                 setAllEvents(fetchedEvents);
+                //@ts-ignore
                 setEvents(fetchedEvents);
             }
         } catch (error) {
@@ -141,7 +146,7 @@ const AllEvents = () => {
             setIsLoading(false); // Ensure loading is false if no location
         }
     }, [userLocation]);
-    
+
     //@ts-ignore
     function submitSearch(e) {
         e.preventDefault();
