@@ -1,0 +1,1 @@
+ALTER TABLE "ratings" ALTER COLUMN "ticketToken" SET NOT NULL;

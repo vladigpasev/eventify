@@ -1,0 +1,1 @@
+ALTER TABLE "ratings" ADD CONSTRAINT "ratings_ticketToken_unique" UNIQUE("ticketToken");

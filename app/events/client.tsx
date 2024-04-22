@@ -200,7 +200,9 @@ const AllEvents = () => {
                 ) : (
                     <div>
                         {noEventsNearby ? (
-                            <div className="text-center text-lg p-5">Няма събития във вашия регион</div>
+                            <>
+                                <div className="text-center text-lg p-5">Няма събития във вашия регион</div>
+                            </>
                         ) : (
                             <>
                                 {!isShowingAllEvents &&

@@ -64,3 +64,11 @@ export const comments = pgTable('comments', {
   //@ts-ignore
   updatedAt: timestamp('updated_at').default(`now()`), 
 });
+
+export const ratings = pgTable('ratings', {
+  id: serial('id').primaryKey(),
+  uuid: uuid('uuid').default(`uuid_generate_v4()`).unique(),
+  ticketToken: varchar('ticketToken', {length: 255}).notNull().unique(), 
+  rating: numeric('rating'),
+  feedback: text('feedback'),
+});
