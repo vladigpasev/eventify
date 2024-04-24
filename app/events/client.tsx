@@ -160,7 +160,6 @@ const AllEvents = () => {
         <div>
             <DashboardNavbar />
             <div className='p-5 sm:px-20 px-5'>
-                <Link href="https://organize.eventify.bg" className='btn btn-primary text-white mb-5'>Организирай събитие</Link>
                 <div className='pb-5 flex sm:flex-row flex-col items-center w-full sm:gap-5 gap-5'>
                     <form className="sm:w-3/4 w-full" onSubmit={submitSearch}>
                         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Търсене</label>
@@ -238,7 +237,7 @@ const AllEvents = () => {
                                                         <div className='flex items-center gap-1'>
                                                             <EurSign />
                                                             {/* @ts-ignore */}
-                                                            <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Безплатно' : `От ${event.price} USD`}</div>
+                                                            <div className="text-black text-xs font-medium leading-tight">{event.isFree ? 'Безплатно' : `От ${event.price} лв.`}</div>
                                                         </div>
                                                         <button onClick={() => openEventDetails(event)} className="...">
                                                             <div className='cursor-pointer text-blue-800 hover:opacity-80'><GoSvg /></div>
