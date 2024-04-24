@@ -8,7 +8,7 @@ export default async function Home({ params: { lang } }: any) {
     <main>
       <Navbar />
       <section
-        style={{ backgroundImage: `url(/images/background.jpg)` }}
+        style={{ backgroundImage: `url(https://media.istockphoto.com/id/636041338/photo/friends-taking-break-after-jogging-in-city.jpg?s=612x612&w=0&k=20&c=POxyJwZWr1L7thfWatjHap6aF6BsSVWDFR5nyQq0nsc=)` }}
         className="py-36 md:py-72 w-full relative bg-center bg-cover"
         id='home'
       >
@@ -16,7 +16,7 @@ export default async function Home({ params: { lang } }: any) {
         <div className="relative w-full">
           <div className="text-center">
             <h4 className="text-white lg:text-5xl text-4xl lg:leading-normal leading-normal font-medium mb-7 position-relative px-10">
-              Какво ти се прави днес?
+              А ти какво ще правиш днес?
             </h4>
             <p className="text-white opacity-50 mb-0 max-w-2xl text-lg mx-auto px-10">
               Искаш да излезеш от еднообразното ежедневие, но не знеш какво ти се прави? Няма проблем, тук ще намериш всякакви събития в твоя район!
@@ -41,11 +41,11 @@ export default async function Home({ params: { lang } }: any) {
 
       <section id="about" className='py-10'>
         <div className='flex lg:flex-row flex-col gap-6 p-5 items-center sm:px-6 lg:px-52 lg:gap-20'>
-          <img src="/images/about.jpg" alt="About Image" className='rounded-lg shadow-2xl max-w-sm w-[90%]' />
+          <img src="/images/IMG_3282.heic" alt="About Image" className='rounded-lg shadow-2xl max-w-sm w-[90%]' />
           <div>
             <p className='text-lg font-semibold text-blue-700 mb-3'>КОИ СМЕ НИЕ ?</p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">За нас</h1>
-            <p className="py-6">Eventify е единствена по рода си програма за създаване и откриване на всякакви събития, които могат да разнообразят ежедневието ни - от партита до научни събития и конференции.</p>
+            <p className="py-6">Eventify е първото в България приложение за популяризиране и създаване на събития. Независимо дали организираш малки или големи събития, или просто търсиш някое интересно мероприятие, което да посетиш - Eventify е твоето решение</p>
             <Link className="btn btn-primary" href={`/dashboard/register`}>Регистрация</Link>
           </div>
         </div>
@@ -57,13 +57,13 @@ export default async function Home({ params: { lang } }: any) {
           <div className='flex lg:flex-row flex-col lg:items-center lg:justify-between'>
             <div>
               <p className='text-lg font-semibold text-blue-700 mb-3'>КАКВО ПРАВИМ ?</p>
-              <h2 className='text-xl sm:text-2xl lg:text-3xl font-bold'>Намери събития и активности в района ти</h2>
+              <h2 className='text-xl sm:text-2xl lg:text-3xl font-bold'>Намери интересни събития около теб</h2>
             </div>
             <div>
               <p>Открий перфектното събитие за теб. Организирай събития, които да бъдат откривани от точната аудитория.</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 items-stretch ">
             {[
               {
                 title: "Открий Събития",
@@ -73,6 +73,7 @@ export default async function Home({ params: { lang } }: any) {
                   </svg>
                 ),
                 subtext: "Намери перфектното събитие за теб в твоя район само с няколко клика и с помощта на Eventify AI.",
+                button: "Виж събитията"
               },
               {
                 title: "Създай Събития",
@@ -125,7 +126,7 @@ export default async function Home({ params: { lang } }: any) {
             ].map((item, key) => (
               <div
                 key={key}
-                className={`features p-6 ${key % 2 === 0
+                className={`features p-6 flex flex-col justify-between ${key % 2 === 0
                   ? "hover:shadow-xl hover:shadow-slate-100 dark:hover:shadow-slate-800"
                   : "shadow-xl shadow-slate-100 dark:shadow-slate-800"
                   } transition duration-500 rounded-3xl mt-8`}
@@ -143,9 +144,9 @@ export default async function Home({ params: { lang } }: any) {
                   </a>
                   <p className="text-slate-400 mt-3">{item.subtext}</p>
 
-                  <a href="https://organize.eventify.bg/" className="mt-5 flex flex-row font-semibold items-center gap-3 hover:text-accent after:bg-accent transition duration-500">
+                  <a href={`${item.button ? "/events" : "https://organize.eventify.bg"}`} className="mt-5 flex flex-row font-semibold items-center gap-3 hover:text-accent after:bg-accent transition duration-500">
                     <span>
-                      Организирай събитие
+                      {item.button ? item.button : "Организирай събитие"}
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style={{ width: '16px', height: '16px' }}>
                       <path fillRule="evenodd" clipRule="evenodd" d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236H-0.001v1h21.884z" />

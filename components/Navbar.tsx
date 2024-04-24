@@ -43,7 +43,7 @@ const Navbar = () => {
                         <li><Link href="/#">Начало</Link></li>
                         <li><Link href="/#about">За нас</Link></li>
                         <li><Link href="/#services">Услуги</Link></li>
-                        <li><Link href="/#reviews">Рейтинги</Link></li>
+                        <li><Link href="/#reviews">Отзиви</Link></li>
                         <li><Link href="/#pricing">Цени</Link></li>
                         <li><Link href="/#contacts">Контакти</Link></li>
                     </ul>
