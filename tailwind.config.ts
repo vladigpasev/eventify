@@ -15,7 +15,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("daisyui"), require("autoprefixer"), require("flowbite/plugin")],
+  plugins: [require("daisyui"), require("autoprefixer")],
   daisyui: {
     themes: [
       {

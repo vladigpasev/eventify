@@ -22,7 +22,7 @@ const Navbar = () => {
     return (
         <nav className={`w-full py-5 navbar-transition z-50 fixed ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} transition-all duration-300 ease-in-out`}>
             <div className='container mx-auto px-4 flex justify-between items-center'>
-                <Link href="/"><img src="/logo.png" alt='Logo' className="w-24" /></Link>
+                <Link href="/"><img src="/logo.png" alt='Logo' className="w-36" /></Link>
                 <div className="lg:hidden">
                     <button onClick={toggleMenu} className={`${isScrolled ? 'text-black hover:text-gray-500' : 'text-gray-300 hover:text-gray-100'} focus:outline-none`}>
                         {isOpen ? (
