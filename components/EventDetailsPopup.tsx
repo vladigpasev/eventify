@@ -44,7 +44,7 @@ const EventDetailsPopup = ({ event, onClose }) => {
                     <div className='flex justify-between items-center mb-4'>
                         <div className='flex items-center gap-2'>
                             <EurSign />
-                            <span className='font-semibold'>{event.isFree ? 'Безплатно' : `От ${event.price} USD`}</span>
+                            <span className='font-semibold'>{event.isFree ? 'Безплатно' : `От ${event.price} лв.`}</span>
                         </div>
                     </div>
                     <div className='flex gap-4'>
