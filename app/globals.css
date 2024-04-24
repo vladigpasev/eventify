@@ -19,22 +19,26 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-    scroll-behavior: smooth;
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  scroll-behavior: smooth;
 }
-*{
+
+* {
   scroll-behavior: smooth;
 }
 
 .navbar-transition {
-  transition: background-color 0.3s ease, top 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for background, position, and shadow */
+  transition: background-color 0.3s ease, top 0.3s ease, box-shadow 0.3s ease;
+  /* Smooth transition for background, position, and shadow */
 }
 
-.boxbg{
+.boxbg {
   background-color: rgba(0, 0, 0, 0.216);
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
 }

@@ -3,11 +3,22 @@ import EurSign from '@/public/images/icons/EurSign';
 import EventTimeSvg from '@/public/images/icons/EventTime';
 import LocationSvg from '@/public/images/icons/Location';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 //@ts-ignore
 const EventDetailsPopup = ({ event, onClose }) => {
+    useEffect(() => {
+        // Когато компонентът се монтира, добавете класа
+        document.body.classList.add('no-scroll');
+
+        // Когато компонентът се демонтира, премахнете класа
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, []);
+
     if (!event) return null;
+
 
     const backgroundImageStyle = {
         backgroundImage: `url(${event.thumbnailUrl})`,
