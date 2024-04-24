@@ -1,0 +1,1 @@
+ALTER TABLE "eventCustomers" ADD COLUMN "sentEmail" boolean DEFAULT false;

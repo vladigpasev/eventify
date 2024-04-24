@@ -10,7 +10,7 @@ const initialState = {
   }
 
   
-function Form({ticket_token}:any) {
+function Form({ticket_token, user}:any) {
     //@ts-ignore
     const [state, formAction] = useFormState(sendFeedback, initialState)
     const [error, setError] = useState('');
@@ -18,7 +18,12 @@ function Form({ticket_token}:any) {
     useEffect(() => {
         // Skip the effect on the initial mount by checking if isInitialMount is true
         if (state.success) {
-            router.replace('/my-tickets');
+            if(user){
+                router.replace('/my-tickets');
+            }else{
+                router.replace('/rate/success');
+            }
+            
         }else{
             //@ts-ignore
             setError(state.error)

@@ -129,10 +129,10 @@ export default async function MyEvents() {
                                         ) : (
                                             <>
                                                 <p>Моля да оцените това събитие:</p>
-                                                <Link href={`/my-tickets/${event.ticketToken}/rate`}>
+                                                <Link href={`/rate/${event.ticketToken}`}>
                                                     <div className="rating my-2">
                                                         {Array.from({ length: 5 }, (_, index) => (
-                                                            <input type="radio" name={`rating-${event.ticketToken}`} className="mask mask-star-2 bg-gray-300" />
+                                                            <input type="radio" key={index} name={`rating-${event.ticketToken}`} className="mask mask-star-2 bg-gray-300" />
                                                         ))}
                                                     </div>
                                                 </Link>

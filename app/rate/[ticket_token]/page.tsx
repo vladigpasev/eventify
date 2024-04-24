@@ -1,13 +1,11 @@
 import React from 'react'
-import { sendFeedback } from '@/server/ratings';
-import SubmitButton from './SubmitButton';
 import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { and, eq } from 'drizzle-orm';
 import { ratings, eventCustomers } from '@/schema/schema';
 import { notFound, redirect } from 'next/navigation';
-import { currentUser } from '@clerk/nextjs';
 import Form from './Form';
+import { currentUser } from '@clerk/nextjs';
 
 type Props = {
     params: { ticket_token: string }
@@ -25,12 +23,17 @@ async function page({ params }: { params: { ticket_token: string } }) {
     })
         .from(eventCustomers)
         //@ts-ignore
-        .where(and(eq(eventCustomers.ticketToken, ticket_token), eq(eventCustomers.clerkUserId, user.id)))
+        .where(and(eq(eventCustomers.ticketToken, ticket_token)))
         .execute();
     if (tickets.length > 0) {
         // There are results
     } else {
-        redirect('/my-tickets')
+        if (user) {
+            redirect('/my-tickets')
+        } else {
+            notFound();
+        }
+
     }
 
     const ratingsList = await db.select({
@@ -40,11 +43,15 @@ async function page({ params }: { params: { ticket_token: string } }) {
         .where(eq(ratings.ticketToken, ticket_token))
         .execute();
     if (ratingsList.length > 0) {
-        redirect('/my-tickets')
+        if (user) {
+            redirect('/my-tickets')
+        } else {
+            redirect('/rate/success')
+        }
     }
 
     return (
-       <Form ticket_token={ticket_token}/>
+        <Form ticket_token={ticket_token} user={user} />
     )
 }
 

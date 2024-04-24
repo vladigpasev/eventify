@@ -51,6 +51,8 @@ export const eventCustomers = pgTable('eventCustomers', {
   isEntered: boolean('isEntered').default(false),
   clerkUserId: varchar('clerkUserId', { length: 100 }),
   hidden: boolean('hidden').default(false),
+  rated: boolean('rated').default(false),
+  sentEmail: boolean('sentEmail').default(false),
 });
 
 export const comments = pgTable('comments', {
