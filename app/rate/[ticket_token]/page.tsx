@@ -5,7 +5,6 @@ import { and, eq } from 'drizzle-orm';
 import { ratings, eventCustomers } from '@/schema/schema';
 import { notFound, redirect } from 'next/navigation';
 import Form from './Form';
-import { currentUser } from '@clerk/nextjs';
 
 type Props = {
     params: { ticket_token: string }
@@ -17,7 +16,6 @@ const db = drizzle(sql);
 async function page({ params }: { params: { ticket_token: string } }) {
     const ticket_token = params.ticket_token;
     console.log(ticket_token);
-    const user = await currentUser();
     const tickets = await db.select({
         ticket_token: eventCustomers.ticketToken,
     })
@@ -28,12 +26,7 @@ async function page({ params }: { params: { ticket_token: string } }) {
     if (tickets.length > 0) {
         // There are results
     } else {
-        if (user) {
-            redirect('/my-tickets')
-        } else {
-            notFound();
-        }
-
+        notFound();
     }
 
     const ratingsList = await db.select({
@@ -43,11 +36,7 @@ async function page({ params }: { params: { ticket_token: string } }) {
         .where(eq(ratings.ticketToken, ticket_token))
         .execute();
     if (ratingsList.length > 0) {
-        if (user) {
-            redirect('/my-tickets')
-        } else {
-            redirect('/rate/success')
-        }
+        redirect('/rate/success')
     }
 
     return (
