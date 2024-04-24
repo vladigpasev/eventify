@@ -15,7 +15,7 @@ function Success() {
                         <p className="text-gray-600 my-2">Благодарим ви за отделеното време.</p>
                         <p> Приятен ден!  </p>
                         <div className="py-10 text-center">
-                            <a href="https://www.eventify.bg/" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
+                            <a href="https://www.eventify.bg/my-tickets" className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
                                 Към Eventify
                             </a>
                         </div>

@@ -51,7 +51,7 @@ async function page({ params }: { params: { ticket_token: string } }) {
     }
 
     return (
-        <Form ticket_token={ticket_token} user={user} />
+        <Form ticket_token={ticket_token} />
     )
 }
 
