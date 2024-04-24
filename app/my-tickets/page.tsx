@@ -89,8 +89,8 @@ export default async function MyEvents() {
                         <div className={`grid md:grid-cols-4 sm:grid-cols-3 supersmall:grid-cols-2 gap-5 w-fit`}>
                             {allEvents.map(event => (
                                 /* @ts-ignore */
-                                <div className='bg-white w-46 rounded overflow-hidden shadow-xl flex flex-col justify-between'>
-                                    <div key={event.uuid} className='p-3'>
+                                <div key={event.uuid} className='bg-white w-46 rounded overflow-hidden shadow-xl flex flex-col justify-between'>
+                                    <div className='p-3'>
                                         <div className='pb-2 h-60'>
                                             {/* @ts-ignore */}
                                             <img src={event.thumbnailUrl} alt="Event Image" className='w-full h-full object-cover object-center rounded' />
