@@ -1,5 +1,6 @@
 //Copyright (C) 2024  Vladimir Pasev
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
 //@ts-ignore
 export default function Pricing() {
@@ -7,39 +8,45 @@ export default function Pricing() {
         {
             id: 1,
             title: "Hobby",
-            price: 0,
-            description: "Идеален за участници в събития и създатели на хоби събития.",
+            monthly: { price: 0, stripe_lookup_key: "hobby_monthly", word: 'месец' },
+            annual: { price: 0, stripe_lookup_key: "hobby_annual", word: 'година' }, // Example, usually the same as monthly if free
+            description: "Перфектен за непрофесионални създатели на събития.",
             features: [
-                { text: "Създай до 5 събития", type: "included" },
-                { text: "Реклама на събития като допълнение (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
-                { text: "30% комисионна за всяко събитие", type: "partially-included" },
+                { text: "Създай до 5 активни събития", type: "included" },
+                { text: "Рекламиране на събитие като добавка (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
+                { text: "20% комисиона на събитие", type: "partially-included" },
             ],
+            current: true,
         },
         {
             id: 2,
             title: "Basic",
-            price: 12,
-            description: "Идеален за организатори на събития с до 20 събития на месец.",
+            monthly: { price: 39.99, stripe_lookup_key: "basic_plan_month", word: 'месец' },
+            annual: { price: 382.20, stripe_lookup_key: "basic_plan_year", word: 'година' }, // Assuming 2 months free
+            description: "Перфектен за организатори с малък брой събития.",
             features: [
-                { text: "Всичко включено в Hobby", type: "included" },
-                { text: "Създай до 20 събития", type: "included" },
-                { text: "Реклама на събития като допълнение с 20% отстъпка (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
-                { text: "15% комисионна за всяко събитие", type: "partially-included" },
+                { text: "Всичко, включено в Hobby", type: "included" },
+                { text: "Създай до 15 активни събития", type: "included" },
+                { text: "Рекламиране на събития с 15% отстъпка (ОЧАКВАЙТЕ СКОРО)", type: "partially-included" },
+                { text: "15% комисиона на събитие", type: "partially-included" },
             ],
         },
         {
             id: 3,
             title: "Premium",
-            price: 28,
-            description: "Идеален за организатори на събития с много събития.",
+            monthly: { price: 59.99, stripe_lookup_key: "premium_plan_month", word: 'месец' },
+            annual: { price: 575.05, stripe_lookup_key: "premium_plan_year", word: 'година' }, // Assuming 2 months free
+            description: "Перфектен за организатори с много събития.",
             features: [
-                { text: "Всичко включено в Basic", type: "included" },
+                { text: "Всичко, включено в Basic", type: "included" },
                 { text: "Създай неограничен брой събития", type: "included" },
-                { text: "Всички функции за реклама на събития са активирани (ОЧАКВАЙТЕ СКОРО)", type: "included" },
-                { text: "5% комисионна за всяко събитие", type: "partially-included" }
+                { text: "Всички опции за рекламиране са включени (ОЧАКВАЙТЕ СКОРО)", type: "included" },
+                { text: "8% комисиона на събитие", type: "partially-included" }
             ],
         },
     ];
+
+    const [annualBilling, setAnnualBilling] = useState(false);
 
     const TickSvg = () => (
         <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,6 +69,10 @@ export default function Pricing() {
             <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
     );
+    const handleAnnualToggle = () => {
+        setAnnualBilling(!annualBilling);
+    };
+
 
 
     return (
@@ -70,60 +81,44 @@ export default function Pricing() {
                 <div >
                     <div className="grid grid-cols-1 pb-8 text-center">
                         <h6 className="text-lg font-semibold text-blue-700 mb-3">
-                        ЦЕНООБРАЗУВАНЕ
+                            ЦЕНООБРАЗУВАНЕ
                         </h6>
                         <h3 className="mb-4 text-3xl lg:text-4xl font-bold">
-                        Пакети
+                            Пакети
                         </h3>
 
                         <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">
-                        Започни да създаваш събития без да е необходимо да имаш голям бюджет.
+                            Започни да създаваш събития без да е необходимо да имаш голям бюджет.
                         </p>
                     </div>
+                    <label className="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" checked={annualBilling} onChange={handleAnnualToggle} value="" className="sr-only peer" />
+                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Плащане на година</span>
+                    </label>
 
                     <div className="flex flex-wrap">
-                        {pricing.map((item, key) => (
-                            <div
-                                className="w-full md:w-1/2 lg:w-1/3 px-0 md:px-3 mt-8"
-                                key={key}
-                            >
-                                <div className="flex flex-col pt-8 pb-8 bg-zinc-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-black rounded-md shadow shadow-slate-200 dark:shadow-slate-700 transition duration-500">
+                    {pricing.map((item, key) => (
+                            <div className="w-full md:w-1/2 lg:w-1/3 px-0 md:px-3 mt-8" key={key}>
+                                <div className="flex flex-col pt-8 pb-8 bg-zinc-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-black rounded-md shadow transition duration-500">
                                     <div className="px-8 pb-8">
-                                        <h3 className="mb-6 text-lg md:text-xl font-semibold dark:text-white">
-                                            {item.title}
-                                        </h3>
+                                        <h3 className="mb-6 text-lg md:text-xl font-semibold dark:text-white">{item.title}</h3>
                                         <div className="mb-6 dark:text-white/70">
-                                            <span className="relative -top-5 text-2xl">$</span>
+                                            <span className="relative -top-5 text-2xl">лв</span>
                                             <span className="text-5xl font-semibold dark:text-white">
-                                                {item.price}
+                                                {annualBilling ? item.annual.price : item.monthly.price}
                                             </span>
-                                            <span className="inline-block ms-1">/ месец</span>
+                                            <span className="inline-block ml-1">/ {annualBilling ? item.annual.word : item.monthly.word}</span>
                                         </div>
-                                        <p className="mb-6 text-slate-430 dark:text-slate-300">
-                                            {item.description}
-                                        </p>
-                                        <Link
-                                            href={`https://organize.eventify.bg/`}
-                                            className="btn bg-primary border-primary text-white rounded-md w-full"
-                                        >
-                                            Организирай събитие
-                                        </Link>
+                                        <p className="mb-6 text-slate-430 dark:text-slate-300">{item.description}</p>
+                                        <Link href={`https://organize.eventify.bg`} className="btn btn-primary text-white rounded-md w-full">Организирай</Link>
                                     </div>
                                     <div className="border-b border-slate-200 dark:border-slate-700"></div>
                                     <ul className="self-start px-8 pt-8">
                                         {item.features.map((subitem, index) => (
-                                            <li
-                                                className="flex items-center my-1 text-slate-400 dark:text-slate-300"
-                                                key={index}
-                                            >
+                                            <li className="flex items-center my-1 text-slate-400 dark:text-slate-300" key={index}>
                                                 <div className="flex flex-row gap-3 items-center">
-                                                    {/* Conditional rendering based on the feature type */}
-                                                    <div className={`${subitem.type === "included"
-                                                        ? "text-success"
-                                                        : subitem.type === "not-included"
-                                                            ? "text-error"
-                                                            : "text-slate-400"
-                                                        } dark:text-slate-300`}>
+                                                    <div className={`${subitem.type === "included" ? "text-success" : subitem.type === "not-included" ? "text-error" : "text-slate-400"} dark:text-slate-300`}>
                                                         {subitem.type === "included" && <TickSvg />}
                                                         {subitem.type === "not-included" && <XSvg />}
                                                         {subitem.type === "partially-included" && <PartialSvg />}
