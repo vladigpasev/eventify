@@ -108,16 +108,16 @@ export async function create_checkout_session(prevState: any, formData: FormData
             let applicationFeePercentage;
             switch (organizerSubscriptionName) {
                 case 'hobby':
-                    applicationFeePercentage = 0.30;
+                    applicationFeePercentage = 0.20;
                     break;
                 case 'basic_plan':
                     applicationFeePercentage = 0.15;
                     break;
                 case 'premium_plan':
-                    applicationFeePercentage = 0.05;
+                    applicationFeePercentage = 0.08;
                     break;
                 default:
-                    applicationFeePercentage = 0.30;
+                    applicationFeePercentage = 0.20;
                     break;
             }
             const applicationFeeAmount = Math.round(priceInCents * applicationFeePercentage);
@@ -149,7 +149,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
                     line_items: [
                         {
                             price_data: {
-                                currency: 'usd',
+                                currency: 'bgn',
                                 unit_amount: priceInCents, // Set the correct price in cents
                                 product_data: {
                                     name: eventName,
