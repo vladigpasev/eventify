@@ -9,7 +9,7 @@ import DashboardNavbar from '@/components/DashboardNavbar';
 import EventTimeSvg from '@/public/images/icons/EventTime';
 import LocationSvg from '@/public/images/icons/Location';
 import EurSign from '@/public/images/icons/EurSign';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs';
 import PurchaseBtn from '@/components/PurchaseBtn';
 import EventComments from '@/components/EventComments';
@@ -100,8 +100,12 @@ const isValidUUID = (uuid: any) => {
 
 async function SeeEventPage({ params }: { params: { uuid: string } }) {
     const user = await currentUser();
-
     const currentEvent = await getEventById(params.uuid);
+
+    // Construct the current path using params.uuid
+    const afterSignInUrl = `/events/${params.uuid}`; // Relative URL
+    // Alternatively, use the full URL if necessary:
+    // const afterSignInUrl = `https://www.eventify.bg/events/${params.uuid}`;
 
     return (
         <div>
@@ -127,8 +131,15 @@ async function SeeEventPage({ params }: { params: { uuid: string } }) {
                                     <span className='font-semibold'>{currentEvent.isFree ? 'Безплатно' : `${currentEvent.price} BGN`}</span>
                                 </div>
                             </div>
-                            <SignedIn><PurchaseBtn price={currentEvent.price} eventId={params.uuid} /></SignedIn>
-                            <SignedOut><p className='text-gray-400 mt-10'>За да си купите билет, трябва да се регистрирате, моля, регистрирайте се!</p></SignedOut>
+                            <SignedIn>
+                                <PurchaseBtn price={currentEvent.price} eventId={params.uuid} />
+                            </SignedIn>
+                            <SignedOut>
+                                <SignInButton mode='modal' afterSignInUrl={afterSignInUrl} >
+                                    <div className='btn btn-primary text-white'>Купи билет</div>
+                                </SignInButton>
+                            </SignedOut>
+
 
                         </div>
                     </div>
