@@ -108,7 +108,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
             let applicationFeePercentage;
             switch (organizerSubscriptionName) {
                 case 'hobby':
-                    applicationFeePercentage = 0.20;
+                    applicationFeePercentage = 0.10;
                     break;
                 case 'basic_plan':
                     applicationFeePercentage = 0.15;
@@ -117,7 +117,7 @@ export async function create_checkout_session(prevState: any, formData: FormData
                     applicationFeePercentage = 0.08;
                     break;
                 default:
-                    applicationFeePercentage = 0.20;
+                    applicationFeePercentage = 0.10;
                     break;
             }
             const applicationFeeAmount = Math.round(priceInCents * applicationFeePercentage);
